@@ -61,12 +61,12 @@
                   <td>
                  
                     <a v-bind:href="'http://127.0.0.1:8000/produccion/'+produccion.ID_Produccion">
-                      Editar
+                    <i class="bi bi-pencil-square"></i>
                     </a>
                   
                     @if ( Auth::user()->type_user == 'Instructor')
                     <a href="#" v-on:click="eliminarProduccion(produccion.ID_Produccion)">
-                      Eliminar
+                    <i class="bi bi-trash3"></i>
                     </a>
                     @endif
                   
