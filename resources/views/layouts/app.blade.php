@@ -35,6 +35,17 @@
                 @if(isset( Auth::user()->name))
                     <ul class="navbar-nav mr-auto">
 
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black;">
+                                <b>Animales</b>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">Lista de animales</a>
+                                <a class="dropdown-item" href="#">Agregar animal</a>
+                            </div>
+                        </li>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black;">
                                 <b>Produccion</b>
@@ -59,8 +70,13 @@
                                 <b>Novedades</b>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="/novedades">Lista de novedades</a>
-                                <a class="dropdown-item" href="/agregarNovedadAnimal">Agregar novedad</a>
+                                <a class="dropdown-item" href=""><b>Novedades animal</b></a>
+                                <a class="dropdown-item" href="/novedades">Lista de novedades a.</a>
+                                <a class="dropdown-item" href="/agregarNovedadAnimal">Agregar novedad a.</a>
+                                <a class="dropdown-item" href=""></a>
+                                <a class="dropdown-item" href=""><b>Novedades producción</b></a>
+                                <a class="dropdown-item" href="">Lista de novedades p.</a>
+                                <a class="dropdown-item" href="">Agregar novedad p.</a>
                             </div>
                         </li>
 
@@ -74,11 +90,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}" style="color:black;"><b>{{ __('Ingresar') }}</b></a>
                             </li>
-                            @if (Route::has('register'))
+                            <!-- @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}" style="color:black;"><b>{{ __('Registrarse') }}</b></a>
                                 </li>
-                            @endif
+                            @endif -->
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="color:black;">
