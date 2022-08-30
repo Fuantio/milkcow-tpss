@@ -4,7 +4,7 @@
 <div class="container">
     <div class="form-group col-md-4">
         <h3>Buscar Usuario/s</h3>
-        <input v-model="textoUsuario" type="text" class="form-control" v-on:keyup="buscarUsuario"></>
+        <input v-model="textoUsuario" type="text" class="form-control" v-on:keyup="buscarUsuario">
     </div>
 
     <div class="row justify-content-center">
@@ -37,7 +37,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(fila_usuario, index) in usuarios" v-show="index >= desde && index < hasta">
+                            
+                            <tr v-for="(fila_usuario, index) in usuarios" v-show="index >= desdeUsuarios && index < hastaUsuarios">
 
                                 <td>@{{fila_usuario.name}}</td>
                                 <td>@{{fila_usuario.last_name}}</td>
@@ -69,15 +70,15 @@
 
                     <nav aria-label="page navigation example ">
                         <ul class="pagination">
-                            <li v-bind:class="ocultarMostrarAnterior">
+                            <li v-bind:class="ocultarMostrarAnteriorUsuarios">
                                 <a v-on:click="anterior" class="page-link" href="#" aria-label="previus">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li v-for="(pagina, index) in paginas" v-bind:class="botones[index]">
-                                <a class="page-link" href="#" v-on:click="paginar(pagina)">@{{pagina}}</a>
+                            <li v-for="(pagina, index) in paginasUsuarios" v-bind:class="botones[index]">
+                                <a class="page-link" href="#" v-on:click="paginarUsuario(pagina)">@{{pagina}}</a>
                             </li>
-                            <li v-if="paginas == 1 " class="page-item disabled">
+                            <li v-if="paginasUsuarios == 1 " class="page-item disabled">
                                 <a class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>

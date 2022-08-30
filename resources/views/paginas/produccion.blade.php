@@ -60,12 +60,12 @@
                   @auth
                   <td>
                  
-                    <a v-bind:href="'http://127.0.0.1:8000/produccion/'+produccion.ID_Produccion">
+                    <a v-bind:href="'http://127.0.0.1:8000/produccion/'+produccion.ID_Produccion" class="btn btn-primary">
                     <i class="bi bi-pencil-square"></i>
                     </a>
                   
                     @if ( Auth::user()->type_user == 'Instructor')
-                    <a href="#" v-on:click="eliminarProduccion(produccion.ID_Produccion)">
+                    <a href="#" v-on:click="eliminarProduccion(produccion.ID_Produccion)" class="btn btn-danger">
                     <i class="bi bi-trash3"></i>
                     </a>
                     @endif

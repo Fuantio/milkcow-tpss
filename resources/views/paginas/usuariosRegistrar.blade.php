@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('REGISTRAR') }}</div>
+                <div class="card-header">{{ __('Registrar usuarios') }}</div>
 
                 <div class="card-body">
                         <form method="POST" action="{{ url('/')}}/usuarios/">
@@ -102,7 +102,7 @@
                                             <option value>Seleciona uno</option>
                                             <option value="Pasante">Pasante</option>
                                             <option value="Aprendiz">Aprendiz</option>
-                                            <option value="Instructor (a)">Instructor (a)</option>
+                                            <option value="Instructor">Instructor</option>
                                         </select>    
                                     </div>
                                 </div>

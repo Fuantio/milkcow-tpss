@@ -22,10 +22,12 @@
     <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color: #FF4000;">
+<div id="app">
+        <nav class="navbar navbar-expand-md navbar-light  shadow-sm" style="background-color: #FF4000;">
             <div class="container">
-            <a href="http://127.0.0.1:8000" class="navbar-brand"><b>MILKCOW-TPS</b></a>
+                <a class="navbar-brand" href="<?php echo e(url('/')); ?>">
+                    <b><?php echo e(config('app.name', 'MIlKCOW-TPS')); ?></b>
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="<?php echo e(__('Toggle navigation')); ?>">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -79,7 +81,17 @@
                                 <a class="dropdown-item" href="">Agregar novedad p.</a>
                             </div>
                         </li>
-
+                        <?php if( Auth::user()->type_user == 'Instructor'): ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black;">
+                                <b>Usuarios</b>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="/usuarios">Lista de usuarios</a>
+                                <a class="dropdown-item" href="/usuariosRegistrar">Registrar usuarios</a>
+                            </div>
+                        </li>
+                        <?php endif; ?>
                     </ul>
                     <?php endif; ?>
 
@@ -90,11 +102,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo e(route('login')); ?>" style="color:black;"><b><?php echo e(__('Ingresar')); ?></b></a>
                             </li>
-                            <!-- <?php if(Route::has('register')): ?>
+                             <?php if(Route::has('register')): ?>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="<?php echo e(route('register')); ?>" style="color:black;"><b><?php echo e(__('Registrarse')); ?></b></a>
+                                    <a class="nav-link" href="/usuariosRegistrar" style="color:black;"><b><?php echo e(__('Registrarse')); ?></b></a>
                                 </li>
-                            <?php endif; ?> -->
+                            <?php endif; ?>
                         <?php else: ?>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="color:black;">
