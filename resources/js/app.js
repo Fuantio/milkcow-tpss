@@ -48,8 +48,10 @@ const app = new Vue({
         ocultarMostrarAnteriorNovedadAnimal: '',
         ocultarMostrarSiguienteNovedadAnimal: '', 
         botonesNovedadAnimal: [],
+
       //*************VARIABLES DE PRODUCCION -FUAN */ 
-      textoProduccion: '',
+
+        textoProduccion: '',
         producciones: [],
         textoVaca: '',
         totalProduccion: 0,
@@ -63,9 +65,20 @@ const app = new Vue({
         ocultarMostrarSiguienteProduccion: '',
         botonesProduccion: [],
         graficarProduccion: '',
-        produccionMonth: []
+        produccionMonth: [],
       
+        //*************VARIABLES DE USUARIOS - WILFREN */
 
+        textoUsuario: '',
+        usuarios: [],
+        totalUsuarios: 0,
+        usuariosPagina: 3,
+        paginasUsuarios: '',
+        desdeUsuarios: '',
+        hastaUsuarios: '',
+        ocultarMostrarAnteriorUsuarios: '',
+        ocultarMostrarSiguienteUsuarios: '',
+        botones: [],
 
 
     },
@@ -476,20 +489,125 @@ const app = new Vue({
                 var chart = new google.visualization.BarChart(document.getElementById("barchart_month"));
                 chart.draw(view, options);
             }
+        },
+
+        //*************MÉTODOS DE USUARIOS - WILFREN */
+
+        eliminarUsuario: function (idUsuario) {
+
+            var eliminar = confirm("¿Está seguro de eliminar usuario?");
+
+            if (eliminar == true) {
+
+                axios.delete('http://127.0.0.1:8000/usuarios/' + idUsuario).then((respuesta) => {
+                    console.log(respuesta);
+
+                    window.location.href = "http://127.0.0.1:8000/usuarios/";
+                });
+            }
 
         },
+        buscarUsuario: function () {
+            if (this.textoUsuario.length > 0) {
+
+                axios.get('http://127.0.0.1:8000/buscarUsuario/' + this.textoUsuario).then((respuesta) => {
+                    this.usuarios = respuesta.data;
+                    this.paginasUsuarios = Math.ceil(this.usuarios.length/ this.usuariosPagina);
+
+                });
+            } else {
+                axios.get('http://127.0.0.1:8000/buscarUsuario/-').then((respuesta) => {
+                    this.usuarios = respuesta.data;
+                    this.paginasUsuarios = Math.ceil(this.usuarios.length/ this.usuariosPagina);
+                });
+
+            }
         },
+        eliminarRebano: function (id_rebano) {
+
+            var eliminar = confirm("¿Está seguro de eliminar el rebaño?");
+
+            if (eliminar == true) {
+
+                axios.delete('http://127.0.0.1:8000/rebano/' + id_rebano).then((respuesta) => {
+                    console.log(respuesta);
+
+                    window.location.href = "http://127.0.0.1:8000/rebano/";
+                });
+            }
+        },
+
+        consultarNumerosUsuarios: function () {
+            axios.get(consultarCantidadUsuarios).then((respuesta) => {
+
+                this.totalUsuarios = respuesta.data
+                this.paginasUsuarios = Math.ceil(this.totalUsuarios / this.usuariosPagina);
+            })
+        },
+        
+        paginar: function (pagina) {
+
+            this.paginaActual = pagina;
+            this.desdeUsuarios = ((this.paginaActual - 1) * this.usuariosPagina);
+            this.hastaUsuarios = this.paginaActual * this.usuariosPagina;
+
+            if (this.paginaActual == 1) {
+
+                this.ocultarMostrarAnteriorUsuarios = "page-item disabled";
+
+            } else {
+                this.ocultarMostrarAnteriorUsuarios = "page-item";
+            }
+            if (this.paginaActual == this.paginasUsuarios) {
+
+
+                this.ocultarMostrarSiguienteUsuarios = "page-item disabled";
+
+            } else {
+                this.ocultarMostrarSiguienteUsuarios = "page-item";
+            }
+
+            for (i = 0; i <= this.paginasUsuarios; i++) {
+
+
+                if ((i + 1) == this.paginaActual) {
+                    this.botones[i] = "page-item active";
+
+                } else {
+                    this.botones[i] = "page-item";
+                }
+            }
+
+        },
+
+        anterior: function () {
+            this.paginaActual = this.paginaActual - 1;
+            this.paginar(this.paginaActual);
+
+        },
+        siguiente: function () {
+            this.paginaActual = this.paginaActual + 1;
+            this.paginar(this.paginaActual);
+
+        }
+
+    },
 
         mounted(){
-             //*************MOUNTED DE NOVEDADES ANIMAL -JHORMAN */ 
+
+            //*************MOUNTED DE NOVEDADES ANIMAL -JHORMAN */ 
             this.buscarNovedades()
             this.buscarNovedades()
             this.consultaNumeroNovedades()
             this.paginar(1)
-             //*************MOUNTED DE PRODUCCION -FUAN */ 
-             this.buscarProduccion()
-             this.consultaNumeroProducciones()
-             this.paginarProduccion(1)
+            //*************MOUNTED DE PRODUCCION -FUAN */ 
+            this.buscarProduccion()
+            this.consultaNumeroProducciones()
+            this.paginarProduccion(1)
+            //*************MOUNTED DE USUARIOS - WILFREN */
+            this.buscarUsuario()
+            this.consultarNumerosUsuarios()
+            this.paginar(1)
             
             
         }
