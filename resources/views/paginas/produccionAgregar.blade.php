@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">{{ __('Registrar producción.') }}</div>
 
                 <div class="card-body">
                 <form method="POST" action="{{url('/')}}/produccion">
@@ -17,6 +17,8 @@
         <div class="col-md-6"> 
     <select name="vaca" id="vaca" class="form-control @error('vaca') is-invalid @enderror">
         
+        <option value="">Selecione una...</option>
+
         @foreach ($vacas as $vaca)
     
         <option value="{{ $vaca['Id_animal']}}">{{ $vaca['nombre']}}</option>
@@ -51,6 +53,8 @@
         <div class="col-md-6"> 
         <select name="responsable" id="responsable" class="form-control @error('responsable') is-invalid @enderror">
 
+        <option value="">Selecione uno/a...</option>
+
         @foreach($usuarios as $usuario)
 
         <option value="{{ $usuario['id']}}">{{ $usuario['name']}}</option>
@@ -70,6 +74,7 @@
     <label for="jornada" class="col-md-4 col-form-label text-md-right">{{ __('JORNADA')}}</label>
         <div class="col-md-6"> 
         <select name="jornada" id="jornada" class="form-control @error('jornada') is-invalid @enderror">
+        <option value="">Selecione una...</option>
         <option value="mañana">mañana</option>
         <option value="tarde">tarde</option>
         </select>

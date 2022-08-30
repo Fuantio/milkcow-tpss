@@ -30,7 +30,11 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const consultaCantidadNovedades = "http://127.0.0.1:8000/contarNovedades"
 //******* CONSTANTE PRODUCCIONES -FUAN */
 const consultaCantidadProducciones = "http://127.0.0.1:8000/contarProduccion"
+//+++++++ CONSTANTE USUARIOS - WILFREN */
+const consultarCantidadUsuarios = "http://127.0.0.1:8000/contarUsuarios"
+
 const app = new Vue({
+
     el: '#app',
     data:{
              //*************VARIABLES DE NOVEDADES DE ANIMALES -JHORMAN */ 
@@ -74,6 +78,7 @@ const app = new Vue({
         totalUsuarios: 0,
         usuariosPagina: 3,
         paginasUsuarios: '',
+        paginaActualUsuarios: '',
         desdeUsuarios: '',
         hastaUsuarios: '',
         ocultarMostrarAnteriorUsuarios: '',
@@ -538,6 +543,7 @@ const app = new Vue({
         },
 
         consultarNumerosUsuarios: function () {
+
             axios.get(consultarCantidadUsuarios).then((respuesta) => {
 
                 this.totalUsuarios = respuesta.data
@@ -545,20 +551,22 @@ const app = new Vue({
             })
         },
         
-        paginar: function (pagina) {
+        paginarUsuario: function (pagina) {
 
-            this.paginaActual = pagina;
-            this.desdeUsuarios = ((this.paginaActual - 1) * this.usuariosPagina);
-            this.hastaUsuarios = this.paginaActual * this.usuariosPagina;
+            this.paginaActualUsuarios = pagina;
+            this.desdeUsuarios = ((this.paginaActualUsuarios - 1) * this.usuariosPagina);
+            console.log("desdeUsuarios: "+this.desdeUsuarios)
+            this.hastaUsuarios = this.paginaActualUsuarios * this.usuariosPagina;
+            console.log("hastaUsuarios: "+this.hastaUsuarios)
 
-            if (this.paginaActual == 1) {
+            if (this.paginaActualUsuarios == 1) {
 
                 this.ocultarMostrarAnteriorUsuarios = "page-item disabled";
 
             } else {
                 this.ocultarMostrarAnteriorUsuarios = "page-item";
             }
-            if (this.paginaActual == this.paginasUsuarios) {
+            if (this.paginaActualUsuarios == this.paginasUsuarios) {
 
 
                 this.ocultarMostrarSiguienteUsuarios = "page-item disabled";
@@ -570,7 +578,7 @@ const app = new Vue({
             for (i = 0; i <= this.paginasUsuarios; i++) {
 
 
-                if ((i + 1) == this.paginaActual) {
+                if ((i + 1) == this.paginaActualUsuarios) {
                     this.botones[i] = "page-item active";
 
                 } else {
@@ -581,13 +589,13 @@ const app = new Vue({
         },
 
         anterior: function () {
-            this.paginaActual = this.paginaActual - 1;
-            this.paginar(this.paginaActual);
+            this.paginaActualUsuarios = this.paginaActualUsuarios - 1;
+            this.paginar(this.paginaActualUsuarios);
 
         },
         siguiente: function () {
-            this.paginaActual = this.paginaActual + 1;
-            this.paginar(this.paginaActual);
+            this.paginaActualUsuarios = this.paginaActualUsuarios + 1;
+            this.paginar(this.paginaActualUsuarios);
 
         }
 
@@ -607,13 +615,8 @@ const app = new Vue({
             //*************MOUNTED DE USUARIOS - WILFREN */
             this.buscarUsuario()
             this.consultarNumerosUsuarios()
-            this.paginar(1)
+            this.paginarUsuario(1)
             
             
         }
-
-    
-
 });
-
-

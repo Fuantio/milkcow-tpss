@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><?php echo e(__('Register')); ?></div>
+                <div class="card-header"><?php echo e(__('Registrar producción.')); ?></div>
 
                 <div class="card-body">
                 <form method="POST" action="<?php echo e(url('/')); ?>/produccion">
@@ -24,6 +24,8 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>">
         
+        <option value="">Selecione una...</option>
+
         <?php $__currentLoopData = $vacas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $vaca): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     
         <option value="<?php echo e($vaca['Id_animal']); ?>"><?php echo e($vaca['nombre']); ?></option>
@@ -86,6 +88,8 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>">
 
+        <option value="">Selecione uno/a...</option>
+
         <?php $__currentLoopData = $usuarios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $usuario): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
         <option value="<?php echo e($usuario['id']); ?>"><?php echo e($usuario['name']); ?></option>
@@ -119,6 +123,7 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>">
+        <option value="">Selecione una...</option>
         <option value="mañana">mañana</option>
         <option value="tarde">tarde</option>
         </select>

@@ -35,6 +35,7 @@ class UsuariosController extends Controller
     {
         $datos = array(
             "name" => $request->input("name"),
+            "last_name" => $request->input("last_name"),
             "identificacion" => $request->input("identificacion"),
             "gender" => $request->input("gender"),
             "email" => $request->input("email"),

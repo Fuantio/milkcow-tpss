@@ -49800,7 +49800,9 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 
 var consultaCantidadNovedades = "http://127.0.0.1:8000/contarNovedades"; //******* CONSTANTE PRODUCCIONES -FUAN */
 
-var consultaCantidadProducciones = "http://127.0.0.1:8000/contarProduccion";
+var consultaCantidadProducciones = "http://127.0.0.1:8000/contarProduccion"; //+++++++ CONSTANTE USUARIOS - WILFREN */
+
+var consultarCantidadUsuarios = "http://127.0.0.1:8000/contarUsuarios";
 var app = new Vue({
   el: '#app',
   data: {
@@ -49831,7 +49833,19 @@ var app = new Vue({
     ocultarMostrarSiguienteProduccion: '',
     botonesProduccion: [],
     graficarProduccion: '',
-    produccionMonth: []
+    produccionMonth: [],
+    //*************VARIABLES DE USUARIOS - WILFREN */
+    textoUsuario: '',
+    usuarios: [],
+    totalUsuarios: 0,
+    usuariosPagina: 3,
+    paginasUsuarios: '',
+    paginaActualUsuarios: '',
+    desdeUsuarios: '',
+    hastaUsuarios: '',
+    ocultarMostrarAnteriorUsuarios: '',
+    ocultarMostrarSiguienteUsuarios: '',
+    botones: []
   },
   methods: (_methods = {
     //*************MÉTODOS DE NOVEDADES DE ANIMALES -JHORMAN */ 
@@ -50126,6 +50140,77 @@ var app = new Vue({
       var chart = new google.visualization.BarChart(document.getElementById("barchart_month"));
       chart.draw(view, options);
     }
+  }), _defineProperty(_methods, "eliminarUsuario", function eliminarUsuario(idUsuario) {
+    var eliminar = confirm("¿Está seguro de eliminar usuario?");
+
+    if (eliminar == true) {
+      axios["delete"]('http://127.0.0.1:8000/usuarios/' + idUsuario).then(function (respuesta) {
+        console.log(respuesta);
+        window.location.href = "http://127.0.0.1:8000/usuarios/";
+      });
+    }
+  }), _defineProperty(_methods, "buscarUsuario", function buscarUsuario() {
+    var _this8 = this;
+
+    if (this.textoUsuario.length > 0) {
+      axios.get('http://127.0.0.1:8000/buscarUsuario/' + this.textoUsuario).then(function (respuesta) {
+        _this8.usuarios = respuesta.data;
+        _this8.paginasUsuarios = Math.ceil(_this8.usuarios.length / _this8.usuariosPagina);
+      });
+    } else {
+      axios.get('http://127.0.0.1:8000/buscarUsuario/-').then(function (respuesta) {
+        _this8.usuarios = respuesta.data;
+        _this8.paginasUsuarios = Math.ceil(_this8.usuarios.length / _this8.usuariosPagina);
+      });
+    }
+  }), _defineProperty(_methods, "eliminarRebano", function eliminarRebano(id_rebano) {
+    var eliminar = confirm("¿Está seguro de eliminar el rebaño?");
+
+    if (eliminar == true) {
+      axios["delete"]('http://127.0.0.1:8000/rebano/' + id_rebano).then(function (respuesta) {
+        console.log(respuesta);
+        window.location.href = "http://127.0.0.1:8000/rebano/";
+      });
+    }
+  }), _defineProperty(_methods, "consultarNumerosUsuarios", function consultarNumerosUsuarios() {
+    var _this9 = this;
+
+    axios.get(consultarCantidadUsuarios).then(function (respuesta) {
+      _this9.totalUsuarios = respuesta.data;
+      _this9.paginasUsuarios = Math.ceil(_this9.totalUsuarios / _this9.usuariosPagina);
+    });
+  }), _defineProperty(_methods, "paginarUsuario", function paginarUsuario(pagina) {
+    this.paginaActualUsuarios = pagina;
+    this.desdeUsuarios = (this.paginaActualUsuarios - 1) * this.usuariosPagina;
+    console.log("desdeUsuarios: " + this.desdeUsuarios);
+    this.hastaUsuarios = this.paginaActualUsuarios * this.usuariosPagina;
+    console.log("hastaUsuarios: " + this.hastaUsuarios);
+
+    if (this.paginaActualUsuarios == 1) {
+      this.ocultarMostrarAnteriorUsuarios = "page-item disabled";
+    } else {
+      this.ocultarMostrarAnteriorUsuarios = "page-item";
+    }
+
+    if (this.paginaActualUsuarios == this.paginasUsuarios) {
+      this.ocultarMostrarSiguienteUsuarios = "page-item disabled";
+    } else {
+      this.ocultarMostrarSiguienteUsuarios = "page-item";
+    }
+
+    for (i = 0; i <= this.paginasUsuarios; i++) {
+      if (i + 1 == this.paginaActualUsuarios) {
+        this.botones[i] = "page-item active";
+      } else {
+        this.botones[i] = "page-item";
+      }
+    }
+  }), _defineProperty(_methods, "anterior", function anterior() {
+    this.paginaActualUsuarios = this.paginaActualUsuarios - 1;
+    this.paginar(this.paginaActualUsuarios);
+  }), _defineProperty(_methods, "siguiente", function siguiente() {
+    this.paginaActualUsuarios = this.paginaActualUsuarios + 1;
+    this.paginar(this.paginaActualUsuarios);
   }), _methods),
   mounted: function mounted() {
     //*************MOUNTED DE NOVEDADES ANIMAL -JHORMAN */ 
@@ -50136,7 +50221,11 @@ var app = new Vue({
 
     this.buscarProduccion();
     this.consultaNumeroProducciones();
-    this.paginarProduccion(1);
+    this.paginarProduccion(1); //*************MOUNTED DE USUARIOS - WILFREN */
+
+    this.buscarUsuario();
+    this.consultarNumerosUsuarios();
+    this.paginarUsuario(1);
   }
 });
 
@@ -50274,8 +50363,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\githubproyecto\milkcow-tps\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\githubproyecto\milkcow-tps\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\frontend\milkcow-tpss\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\frontend\milkcow-tpss\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
