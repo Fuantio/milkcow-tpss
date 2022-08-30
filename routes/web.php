@@ -48,4 +48,14 @@ Route::view('/graficas', 'paginas.graficas');
 
 Route::get('/buscarGraficoMonthYear/{cadena}', 'ProduccionController@buscarMonthYear');
 
-//************ RUTAS VACA - DANIELA */
+//************ RUTAS USUARIOS - WILFREN */
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('/usuarios','UsuariosController');
+
+Route::view('/usuariosRegistrar', 'paginas.usuariosRegistrar');
+
+Route::get('/buscarUsuario/{cadena}', 'usuariosController@buscarUsuario');
+
+Route::get('/contarUsuarios', 'UsuariosController@contarUsuarios');
