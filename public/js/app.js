@@ -49768,7 +49768,7 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _data, _methods, _methods2;
+var _data, _methods;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -49804,7 +49804,9 @@ var consultaCantidadProducciones = "http://127.0.0.1:8000/contarProduccion"; //+
 
 var consultarCantidadUsuarios = "http://127.0.0.1:8000/contarUsuarios"; //********* CONSTANTE VACAS - DANIELA */
 
-var consultarCantidadAnimales = "http://127.0.0.1:8000/contarAnimales";
+var consultarCantidadAnimales = "http://127.0.0.1:8000/contarAnimales"; //********* CONSTANTE DESPACHOS - JUAN */
+
+var consultaCantidadDespachos = "http://127.0.0.1:8000/contarDespachos";
 var app = new Vue({
   el: '#app',
   data: (_data = {
@@ -49849,7 +49851,7 @@ var app = new Vue({
     ocultarMostrarSiguienteUsuarios: '',
     botones: [],
     //*************VARIABLES DE VACAS - DANIELA */
-    textoAnimales: '',
+    buscar_Animal: '',
     tipo_usuario: '',
     nombre_vaca: '',
     arregloAnimales: [],
@@ -49873,7 +49875,7 @@ var app = new Vue({
     despachosPagina: 5,
     paginasDespacho: ''
   }, _defineProperty(_data, "paginaActual", 1), _defineProperty(_data, "desdeDespacho", ''), _defineProperty(_data, "hastaDespacho", ''), _defineProperty(_data, "ocultarMostrarAnteriorDespacho", ''), _defineProperty(_data, "ocultarMostrarSiguienteDespacho", ''), _defineProperty(_data, "botonesDespacho", []), _defineProperty(_data, "arregloDespachos", []), _data),
-  methods: (_methods2 = {
+  methods: (_methods = {
     //*************MÉTODOS DE NOVEDADES DE ANIMALES -JHORMAN */ 
     consultaNumeroNovedades: function consultaNumeroNovedades() {
       var _this = this;
@@ -50079,13 +50081,13 @@ var app = new Vue({
         }
       }
     }
-  }, _defineProperty(_methods2, "anterior", function anterior() {
+  }, _defineProperty(_methods, "anterior", function anterior() {
     this.paginaActualProduccion = this.paginaActualProduccion - 1;
     this.paginarProduccion(this.paginaActualProduccion);
-  }), _defineProperty(_methods2, "siguiente", function siguiente() {
+  }), _defineProperty(_methods, "siguiente", function siguiente() {
     this.paginaActualProduccion = this.paginaActualProduccion + 1;
     this.paginarProduccion(this.paginaActualProduccion);
-  }), _defineProperty(_methods2, "dibujarGrafico", function dibujarGrafico(produccionMañana, produccionTarde, titulo) {
+  }), _defineProperty(_methods, "dibujarGrafico", function dibujarGrafico(produccionMañana, produccionTarde, titulo) {
     google.charts.load("current", {
       packages: ["corechart"]
     });
@@ -50116,7 +50118,7 @@ var app = new Vue({
       var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
       chart.draw(view, options);
     }
-  }), _defineProperty(_methods2, "buscarMonthYear", function buscarMonthYear() {
+  }), _defineProperty(_methods, "buscarMonthYear", function buscarMonthYear() {
     var _this7 = this;
 
     if (this.graficarProduccion.length > 0) {
@@ -50137,7 +50139,7 @@ var app = new Vue({
         _this7.dibujarGraficoMes(datos);
       });
     }
-  }), _defineProperty(_methods2, "dibujarGraficoMes", function dibujarGraficoMes(datos) {
+  }), _defineProperty(_methods, "dibujarGraficoMes", function dibujarGraficoMes(datos) {
     google.charts.load("current", {
       packages: ["corechart"]
     });
@@ -50166,7 +50168,7 @@ var app = new Vue({
       var chart = new google.visualization.BarChart(document.getElementById("barchart_month"));
       chart.draw(view, options);
     }
-  }), _defineProperty(_methods2, "eliminarUsuario", function eliminarUsuario(idUsuario) {
+  }), _defineProperty(_methods, "eliminarUsuario", function eliminarUsuario(idUsuario) {
     var eliminar = confirm("¿Está seguro de eliminar usuario?");
 
     if (eliminar == true) {
@@ -50175,7 +50177,7 @@ var app = new Vue({
         window.location.href = "http://127.0.0.1:8000/usuarios/";
       });
     }
-  }), _defineProperty(_methods2, "buscarUsuario", function buscarUsuario() {
+  }), _defineProperty(_methods, "buscarUsuario", function buscarUsuario() {
     var _this8 = this;
 
     if (this.textoUsuario.length > 0) {
@@ -50186,10 +50188,11 @@ var app = new Vue({
     } else {
       axios.get('http://127.0.0.1:8000/buscarUsuario/-').then(function (respuesta) {
         _this8.usuarios = respuesta.data;
+        console.log(_this8.usuarios);
         _this8.paginasUsuarios = Math.ceil(_this8.usuarios.length / _this8.usuariosPagina);
       });
     }
-  }), _defineProperty(_methods2, "eliminarRebano", function eliminarRebano(id_rebano) {
+  }), _defineProperty(_methods, "eliminarRebano", function eliminarRebano(id_rebano) {
     var eliminar = confirm("¿Está seguro de eliminar el rebaño?");
 
     if (eliminar == true) {
@@ -50198,14 +50201,14 @@ var app = new Vue({
         window.location.href = "http://127.0.0.1:8000/rebano/";
       });
     }
-  }), _defineProperty(_methods2, "consultarNumerosUsuarios", function consultarNumerosUsuarios() {
+  }), _defineProperty(_methods, "consultarNumerosUsuarios", function consultarNumerosUsuarios() {
     var _this9 = this;
 
     axios.get(consultarCantidadUsuarios).then(function (respuesta) {
       _this9.totalUsuarios = respuesta.data;
       _this9.paginasUsuarios = Math.ceil(_this9.totalUsuarios / _this9.usuariosPagina);
     });
-  }), _defineProperty(_methods2, "paginarUsuario", function paginarUsuario(pagina) {
+  }), _defineProperty(_methods, "paginarUsuario", function paginarUsuario(pagina) {
     this.paginaActualUsuarios = pagina;
     this.desdeUsuarios = (this.paginaActualUsuarios - 1) * this.usuariosPagina;
     console.log("desdeUsuarios: " + this.desdeUsuarios);
@@ -50231,160 +50234,148 @@ var app = new Vue({
         this.botones[i] = "page-item";
       }
     }
-  }), _defineProperty(_methods2, "anterior", function anterior() {
+  }), _defineProperty(_methods, "anterior", function anterior() {
     this.paginaActualUsuarios = this.paginaActualUsuarios - 1;
     this.paginar(this.paginaActualUsuarios);
-  }), _defineProperty(_methods2, "siguiente", function siguiente() {
+  }), _defineProperty(_methods, "siguiente", function siguiente() {
     this.paginaActualUsuarios = this.paginaActualUsuarios + 1;
     this.paginar(this.paginaActualUsuarios);
-  }), _defineProperty(_methods2, "methods", (_methods = {
-    eliminarAnimal: function eliminarAnimal(Id_animal) {
-      var eliminar = confirm("¿esta seguro que quiere eliminar la vaca?");
+  }), _defineProperty(_methods, "eliminarAnimal", function eliminarAnimal(Id_animal) {
+    var eliminar = confirm("¿esta seguro que quiere eliminar la vaca?");
 
-      if (eliminar == true) {
-        axios["delete"]('http://127.0.0.1:8000/animales/' + Id_animal).then(function (respuesta) {
-          console.log(respuesta);
-          window.location.href = "http://127.0.0.1:8000/animales/";
-        });
-      }
-    },
-    textoAnimales: function textoAnimales() {
-      var _this10 = this;
-
-      if (this.nombre_vaca.length > 0) {
-        axios.get('http://127.0.0.1:8000/buscarAnimales/' + this.nombre_vaca).then(function (respuesta) {
-          _this10.arregloAnimales = respuesta.data;
-          _this10.paginas = Math.ceil(_this10.arregloAnimales.length / _this10.animalesPaginas);
-        });
-      } else {
-        axios.get('http://127.0.0.1:8000/buscarAnimales/-').then(function (respuesta) {
-          _this10.arregloAnimales = respuesta.data;
-          _this10.paginas = Math.ceil(_this10.arregloAnimales.length / _this10.animalesPaginas);
-        });
-      }
-    },
-    consultarNumeroAnimales: function consultarNumeroAnimales() {
-      var _this11 = this;
-
-      axios.get(consultarCantidadAnimales).then(function (respuesta) {
-        _this11.totalAnimales = respuesta.data;
-        _this11.paginas = Math.ceil(_this11.totalAnimales / _this11.animalesPaginas);
+    if (eliminar == true) {
+      axios["delete"]('http://127.0.0.1:8000/animales/' + Id_animal).then(function (respuesta) {
+        console.log(respuesta);
+        window.location.href = "http://127.0.0.1:8000/animales/";
       });
-    },
-    paginar: function paginar(pagina) {
-      this.paginaActual = pagina;
-      this.desdeVaca = (this.paginaActual - 1) * this.animalesPaginas;
-      this.hastaVaca = this.paginaActual * this.animalesPaginas;
+    }
+  }), _defineProperty(_methods, "buscar_animales", function buscar_animales() {
+    var _this10 = this;
 
-      if (this.paginaActual == 1) {
-        this.ocultarMostrarAnteriorVaca = "page-item disabled";
-      } else {
-        this.ocultarMostrarAnteriorVaca = "page-item";
-      }
-
-      if (this.paginaActual == this.paginasVaca) {
-        this.ocultarMostrarSiguienteVaca = "page-item disabled";
-      } else {
-        this.ocultarMostrarSiguienteVaca = "page-item";
-      }
-
-      for (i = 0; i <= this.paginasVaca; i++) {
-        if (i + 1 == this.paginaActual) {
-          this.botonesVaca[i] = "page-item active";
-        } else {
-          this.botonesVaca[i] = "page-item";
-        }
-      }
-    },
-    anterior: function anterior() {
-      this.paginaActual = this.paginaActual - 1;
-      this.paginar(this.paginaActual);
-    },
-    siguiente: function siguiente() {
-      this.paginaActual = this.paginaActual + 1;
-      this.paginar(this.paginaActual);
-    },
-    //************* METODOS DE DESPACHO - JUAN */
-    eliminarDespachos: function eliminarDespachos(id_despacho) {
-      var eliminar = confirm("¿Esta seguro  que quiere eliminar el Despacho?");
-
-      if (eliminar == true) {
-        axios["delete"]('http://127.0.0.1:8000/despachos/' + id_despacho).then(function (respuesta) {
-          console.log(respuesta);
-          window.location.href = "http://127.0.0.1:8000/despachos/";
-        });
-      }
-    },
-    buscarDespacho: function buscarDespacho() {
-      var _this12 = this;
-
-      if (this.textoDespachos.length > 0) {
-        axios.get('http://127.0.0.1:8000/despachosBuscar/' + this.textoDespachos).then(function (respuesta) {
-          _this12.despachos = respuesta.data;
-          _this12.paginas = Math.ceil(_this12.despachos.length / _this12.despachosPagina);
-        });
-      } else {
-        axios.get('http://127.0.0.1:8000/despachosBuscar/-').then(function (respuesta) {
-          _this12.despachos = respuesta.data;
-          _this12.paginas = Math.ceil(_this12.despachos.length / _this12.despachosPagina);
-        });
-      }
-    },
-    buscarDespachoFecha: function buscarDespachoFecha() {
-      var _this13 = this;
-
-      if (this.fechaDespachos.length > 0) {
-        axios.get('http://127.0.0.1:8000/despachosBuscarFecha/' + this.fechaDespachos).then(function (respuesta) {
-          _this13.despachos = respuesta.data;
-          _this13.paginas = Math.ceil(_this13.despachos.length / _this13.despachosPagina);
-        });
-      } else {
-        axios.get('http://127.0.0.1:8000/despachosBuscarFecha/-').then(function (respuesta) {
-          _this13.despachos = respuesta.data;
-          _this13.paginas = Math.ceil(_this13.despachos.length / _this13.despachosPagina);
-        });
-      }
-    },
-    consultaNumeroDespachos: function consultaNumeroDespachos() {
-      var _this14 = this;
-
-      axios.get(consultaCantidadDespachos).then(function (respuesta) {
-        _this14.totalDespachos = respuesta.data;
-        _this14.paginas = Math.ceil(_this14.totalDespachos / _this14.despachosPagina);
+    if (this.nombre_vaca.length > 0) {
+      axios.get('http://127.0.0.1:8000/buscarAnimales/' + this.nombre_vaca).then(function (respuesta) {
+        _this10.arregloAnimales = respuesta.data;
+        _this10.paginas = Math.ceil(_this10.arregloAnimales.length / _this10.animalesPaginas);
       });
-    },
-    paginarDespacho: function paginarDespacho(pagina) {
-      this.paginaActual = pagina;
-      this.desdeDespacho = (this.paginaActual - 1) * this.despachosPagina;
-      this.hastaDespacho = this.paginaActual * this.despachosPagina;
+    } else {
+      axios.get('http://127.0.0.1:8000/buscarAnimales/-').then(function (respuesta) {
+        _this10.arregloAnimales = respuesta.data;
+        _this10.paginas = Math.ceil(_this10.arregloAnimales.length / _this10.animalesPaginas);
+      });
+    }
+  }), _defineProperty(_methods, "consultarNumeroAnimales", function consultarNumeroAnimales() {
+    var _this11 = this;
 
-      if (this.paginaActual == 1) {
-        this.ocultarMostrarAnteriorDespacho = "page-item disabled";
+    axios.get(consultarCantidadAnimales).then(function (respuesta) {
+      _this11.totalAnimales = respuesta.data;
+      _this11.paginas = Math.ceil(_this11.totalAnimales / _this11.animalesPaginas);
+    });
+  }), _defineProperty(_methods, "paginar", function paginar(pagina) {
+    this.paginaActual = pagina;
+    this.desdeVaca = (this.paginaActual - 1) * this.animalesPaginas;
+    this.hastaVaca = this.paginaActual * this.animalesPaginas;
+
+    if (this.paginaActual == 1) {
+      this.ocultarMostrarAnteriorVaca = "page-item disabled";
+    } else {
+      this.ocultarMostrarAnteriorVaca = "page-item";
+    }
+
+    if (this.paginaActual == this.paginasVaca) {
+      this.ocultarMostrarSiguienteVaca = "page-item disabled";
+    } else {
+      this.ocultarMostrarSiguienteVaca = "page-item";
+    }
+
+    for (i = 0; i <= this.paginasVaca; i++) {
+      if (i + 1 == this.paginaActual) {
+        this.botonesVaca[i] = "page-item active";
       } else {
-        this.ocultarMostrarAnteriorDespacho = "page-item";
-      }
-
-      if (this.paginaActual == this.paginasDespacho) {
-        this.ocultarMostrarSiguienteDespacho = "page-item disabled";
-      } else {
-        this.ocultarMostrarSiguienteDespacho = "page-item";
-      }
-
-      for (i = 0; i <= this.paginasDespacho; i++) {
-        if (i + 1 == this.paginaActual) {
-          this.botonesDespacho[i] = "page-item active";
-        } else {
-          this.botonesDespacho[i] = "page-item";
-        }
+        this.botonesVaca[i] = "page-item";
       }
     }
-  }, _defineProperty(_methods, "anterior", function anterior() {
+  }), _defineProperty(_methods, "anterior", function anterior() {
+    this.paginaActual = this.paginaActual - 1;
+    this.paginar(this.paginaActual);
+  }), _defineProperty(_methods, "siguiente", function siguiente() {
+    this.paginaActual = this.paginaActual + 1;
+    this.paginar(this.paginaActual);
+  }), _defineProperty(_methods, "eliminarDespachos", function eliminarDespachos(id_despacho) {
+    var eliminar = confirm("¿Esta seguro  que quiere eliminar el Despacho?");
+
+    if (eliminar == true) {
+      axios["delete"]('http://127.0.0.1:8000/despachos/' + id_despacho).then(function (respuesta) {
+        console.log(respuesta);
+        window.location.href = "http://127.0.0.1:8000/despachos/";
+      });
+    }
+  }), _defineProperty(_methods, "buscarDespacho", function buscarDespacho() {
+    var _this12 = this;
+
+    if (this.textoDespachos.length > 0) {
+      axios.get('http://127.0.0.1:8000/despachosBuscar/' + this.textoDespachos).then(function (respuesta) {
+        _this12.despachos = respuesta.data;
+        _this12.paginas = Math.ceil(_this12.despachos.length / _this12.despachosPagina);
+      });
+    } else {
+      axios.get('http://127.0.0.1:8000/despachosBuscar/-').then(function (respuesta) {
+        _this12.despachos = respuesta.data;
+        _this12.paginas = Math.ceil(_this12.despachos.length / _this12.despachosPagina);
+      });
+    }
+  }), _defineProperty(_methods, "buscarDespachoFecha", function buscarDespachoFecha() {
+    var _this13 = this;
+
+    if (this.fechaDespachos.length > 0) {
+      axios.get('http://127.0.0.1:8000/despachosBuscarFecha/' + this.fechaDespachos).then(function (respuesta) {
+        _this13.despachos = respuesta.data;
+        _this13.paginas = Math.ceil(_this13.despachos.length / _this13.despachosPagina);
+      });
+    } else {
+      axios.get('http://127.0.0.1:8000/despachosBuscarFecha/-').then(function (respuesta) {
+        _this13.despachos = respuesta.data;
+        _this13.paginas = Math.ceil(_this13.despachos.length / _this13.despachosPagina);
+      });
+    }
+  }), _defineProperty(_methods, "consultaNumeroDespachos", function consultaNumeroDespachos() {
+    var _this14 = this;
+
+    axios.get(consultaCantidadDespachos).then(function (respuesta) {
+      _this14.totalDespachos = respuesta.data;
+      _this14.paginas = Math.ceil(_this14.totalDespachos / _this14.despachosPagina);
+    });
+  }), _defineProperty(_methods, "paginarDespacho", function paginarDespacho(pagina) {
+    this.paginaActual = pagina;
+    this.desdeDespacho = (this.paginaActual - 1) * this.despachosPagina;
+    this.hastaDespacho = this.paginaActual * this.despachosPagina;
+
+    if (this.paginaActual == 1) {
+      this.ocultarMostrarAnteriorDespacho = "page-item disabled";
+    } else {
+      this.ocultarMostrarAnteriorDespacho = "page-item";
+    }
+
+    if (this.paginaActual == this.paginasDespacho) {
+      this.ocultarMostrarSiguienteDespacho = "page-item disabled";
+    } else {
+      this.ocultarMostrarSiguienteDespacho = "page-item";
+    }
+
+    for (i = 0; i <= this.paginasDespacho; i++) {
+      if (i + 1 == this.paginaActual) {
+        this.botonesDespacho[i] = "page-item active";
+      } else {
+        this.botonesDespacho[i] = "page-item";
+      }
+    }
+  }), _defineProperty(_methods, "anterior", function anterior() {
     this.paginaActual = this.paginaActual - 1;
     this.paginarDespacho(this.paginaActual);
   }), _defineProperty(_methods, "siguiente", function siguiente() {
     this.paginaActual = this.paginaActual + 1;
     this.paginarDespacho(this.paginaActual);
-  }), _methods)), _defineProperty(_methods2, "mounted", function mounted() {
+  }), _methods),
+  mounted: function mounted() {
     //*************MOUNTED DE NOVEDADES ANIMAL -JHORMAN */ 
     this.buscarNovedades();
     this.buscarNovedades();
@@ -50407,7 +50398,7 @@ var app = new Vue({
     this.buscarDespachoFecha();
     this.consultaNumeroDespachos();
     this.paginarDespacho(1);
-  }), _methods2)
+  }
 });
 
 /***/ }),

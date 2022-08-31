@@ -7,7 +7,7 @@
     <div class="form-group col-md-4">
 
         <h3>Buscar Animales:</h3>
-        <input v-model="nombre_vaca" type="text" class="form-control" v-on:keyup="textoAnimales">
+        <input v-model="nombre_vaca" type="text" class="form-control" v-on:keyup="buscar_animales">
     </div>
 
     <nav aria-label="Page navigation example">

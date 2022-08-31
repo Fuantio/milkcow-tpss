@@ -34,6 +34,9 @@ const consultaCantidadProducciones = "http://127.0.0.1:8000/contarProduccion"
 const consultarCantidadUsuarios = "http://127.0.0.1:8000/contarUsuarios"
 //********* CONSTANTE VACAS - DANIELA */
 const consultarCantidadAnimales = "http://127.0.0.1:8000/contarAnimales"
+//********* CONSTANTE DESPACHOS - JUAN */
+const consultaCantidadDespachos = "http://127.0.0.1:8000/contarDespachos"
+
 const app = new Vue({
 
     el: '#app',
@@ -85,7 +88,7 @@ const app = new Vue({
 
         //*************VARIABLES DE VACAS - DANIELA */
 
-        textoAnimales: '',
+        buscar_Animal: '',
         tipo_usuario: '',
         nombre_vaca: '',
         arregloAnimales: [],
@@ -545,8 +548,8 @@ const app = new Vue({
 
         },
         buscarUsuario: function () {
+            
             if (this.textoUsuario.length > 0) {
-
                 axios.get('http://127.0.0.1:8000/buscarUsuario/' + this.textoUsuario).then((respuesta) => {
                     this.usuarios = respuesta.data;
                     this.paginasUsuarios = Math.ceil(this.usuarios.length/ this.usuariosPagina);
@@ -555,6 +558,7 @@ const app = new Vue({
             } else {
                 axios.get('http://127.0.0.1:8000/buscarUsuario/-').then((respuesta) => {
                     this.usuarios = respuesta.data;
+                    console.log(this.usuarios)
                     this.paginasUsuarios = Math.ceil(this.usuarios.length/ this.usuariosPagina);
                 });
 
@@ -632,7 +636,7 @@ const app = new Vue({
         },
 
         //*************METODOS DE VACAS - DANIELA */
-        methods: {
+
             eliminarAnimal: function (Id_animal) {
     
                 var eliminar = confirm("¿esta seguro que quiere eliminar la vaca?");
@@ -647,11 +651,11 @@ const app = new Vue({
                 }
             },
     
-            textoAnimales: function () {
+            buscar_animales: function () {
                 
                 if (this.nombre_vaca.length > 0) {
                     axios.get('http://127.0.0.1:8000/buscarAnimales/' + this.nombre_vaca).then((respuesta) => {
-    
+                    
                         this.arregloAnimales = respuesta.data;
                         this.paginas = Math.ceil(this.arregloAnimales.length / this.animalesPaginas);
                     });
@@ -858,4 +862,4 @@ const app = new Vue({
             this.consultaNumeroDespachos()
             this.paginarDespacho(1)
         }
-}});
+});
