@@ -1,3 +1,4 @@
+@if (isset( Auth::user()->name ))
 @extends('layouts.app')
 
 @section('content')
@@ -115,3 +116,4 @@
 </div>
 @endforeach
 @endsection
+@endif

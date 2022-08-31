@@ -49,10 +49,11 @@
                                         <a v-bind:href="'http://127.0.0.1:8000/despachos/'+ despacho.id_despacho">
                                             Editar
                                         </a>
-
+                                        @if ( Auth::user()->type_user == 'Instructor')
                                         <a href="#" v-on:click="eliminarDespachos(despacho.id_despacho)">
                                             Eliminar
                                         </a>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
