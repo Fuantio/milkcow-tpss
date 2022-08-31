@@ -32,7 +32,8 @@ const consultaCantidadNovedades = "http://127.0.0.1:8000/contarNovedades"
 const consultaCantidadProducciones = "http://127.0.0.1:8000/contarProduccion"
 //+++++++ CONSTANTE USUARIOS - WILFREN */
 const consultarCantidadUsuarios = "http://127.0.0.1:8000/contarUsuarios"
-
+//********* CONSTANTE VACAS - DANIELA */
+const consultarCantidadAnimales = "http://127.0.0.1:8000/contarAnimales"
 const app = new Vue({
 
     el: '#app',
@@ -41,8 +42,6 @@ const app = new Vue({
         fechaNovedad: '',
         nombreVaca: '',
         novedades: [],
-        
-
         totalNovedades: 0,
         novedadesPagina: 6,
         paginasNovedadAnimal: '', 
@@ -60,7 +59,6 @@ const app = new Vue({
         textoVaca: '',
         totalProduccion: 0,
         produccionPagina: 10,
-        
         paginasProduccion: '',
         paginaActualProduccion: 1,
         desdeProduccion: '',
@@ -85,7 +83,21 @@ const app = new Vue({
         ocultarMostrarSiguienteUsuarios: '',
         botones: [],
 
+        //*************VARIABLES DE VACAS - DANIELA */
 
+        textoAnimales: '',
+        tipo_usuario: '',
+        nombre_vaca: '',
+        arregloAnimales: [],
+        totalAnimales: 0,
+        animalesPaginas: 6,
+        paginasVaca: '',
+        paginaActual: 1,
+        desdeVaca: '',
+        hastaVaca: '',
+        ocultarMostrarAnteriorVaca: '',
+        ocultarMostrarSiguienteVaca: '',
+        botonesVaca: [],
     },
     methods:{
          //*************MÉTODOS DE NOVEDADES DE ANIMALES -JHORMAN */ 
@@ -597,8 +609,85 @@ const app = new Vue({
             this.paginaActualUsuarios = this.paginaActualUsuarios + 1;
             this.paginar(this.paginaActualUsuarios);
 
-        }
+        },
 
+        //*************METODOS DE VACAS - DANIELA */
+        methods: {
+            eliminarAnimal: function (Id_animal) {
+    
+                var eliminar = confirm("¿esta seguro que quiere eliminar la vaca?");
+    
+                if (eliminar == true) {
+                    axios.delete('http://127.0.0.1:8000/animales/' + Id_animal).then((respuesta) => {
+    
+                        console.log(respuesta);
+                        window.location.href = "http://127.0.0.1:8000/animales/";
+    
+                    });
+                }
+            },
+    
+            buscar_animales: function () {
+                
+                if (this.nombre_vaca.length > 0) {
+                    axios.get('http://127.0.0.1:8000/buscarAnimales/' + this.nombre_vaca).then((respuesta) => {
+    
+                        this.arregloAnimales = respuesta.data;
+                        this.paginas = Math.ceil(this.arregloAnimales.length / this.animalesPaginas);
+                    });
+                } else {
+                    axios.get('http://127.0.0.1:8000/buscarAnimales/-').then((respuesta) => {
+                        this.arregloAnimales = respuesta.data;
+                        this.paginas = Math.ceil(this.arregloAnimales.length / this.animalesPaginas);
+    
+                    });
+                }
+    
+            },
+            consultarNumeroAnimales: function () {
+                axios.get(consultarCantidadAnimales).then((respuesta) => {
+                    this.totalAnimales = respuesta.data
+                    this.paginas = Math.ceil(this.totalAnimales / this.animalesPaginas);
+                })
+            },
+            paginar: function (pagina) {
+                this.paginaActual = pagina;
+                this.desdeVaca = ((this.paginaActual - 1) * this.animalesPaginas);
+                this.hastaVaca = this.paginaActual * this.animalesPaginas;
+    
+                if (this.paginaActual == 1) {
+                    this.ocultarMostrarAnteriorVaca = "page-item disabled";
+                } else {
+                    this.ocultarMostrarAnteriorVaca = "page-item";
+                }
+    
+                if (this.paginaActual == this.paginasVaca) {
+                    this.ocultarMostrarSiguienteVaca = "page-item disabled";
+    
+                } else {
+                    this.ocultarMostrarSiguienteVaca = "page-item";
+                }
+                for (i = 0; i <= this.paginasVaca; i++) {
+    
+                    if ((i + 1) == this.paginaActual) {
+                        this.botonesVaca[i] = "page-item active";
+    
+                    } else {
+                        this.botonesVaca[i] = "page-item";
+                    }
+    
+                }
+    
+            },
+            anterior: function () {
+                this.paginaActual = this.paginaActual - 1;
+                this.paginar(this.paginaActual);
+            },
+            siguiente: function () {
+                this.paginaActual = this.paginaActual + 1;
+                this.paginar(this.paginaActual);
+    
+            }
     },
 
         mounted(){
@@ -616,7 +705,10 @@ const app = new Vue({
             this.buscarUsuario()
             this.consultarNumerosUsuarios()
             this.paginarUsuario(1)
-            
+            //*************MOUNTED DE VACAS - DANIELA */
+            this.buscar_animales()
+            this.consultarNumeroAnimales()
+            this.paginar(1)
             
         }
-});
+}});

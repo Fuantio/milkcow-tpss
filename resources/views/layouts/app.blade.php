@@ -43,8 +43,8 @@
                                 <b>Animales</b>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">Lista de animales</a>
-                                <a class="dropdown-item" href="#">Agregar animal</a>
+                                <a class="dropdown-item" href="/animales">Lista de animales</a>
+                                <a class="dropdown-item" href="/animalesAgregar">Agregar animal</a>
                             </div>
                         </li>
 

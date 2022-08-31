@@ -59,3 +59,13 @@ Route::view('/usuariosRegistrar', 'paginas.usuariosRegistrar');
 Route::get('/buscarUsuario/{cadena}', 'usuariosController@buscarUsuario');
 
 Route::get('/contarUsuarios', 'UsuariosController@contarUsuarios');
+
+//*********** RUTAS VACAS - DANIELA */
+
+Route::resource('/animales','AnimalController');
+
+Route::get('/animalesAgregar','AnimalController@animalAgregar');
+
+Route::get('/buscarAnimales/{cadena}','AnimalController@buscarAnimales');
+
+Route::get('/contarAnimales', 'AnimalController@contarAnimales');
