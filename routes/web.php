@@ -69,3 +69,17 @@ Route::get('/animalesAgregar','AnimalController@animalAgregar');
 Route::get('/buscarAnimales/{cadena}','AnimalController@buscarAnimales');
 
 Route::get('/contarAnimales', 'AnimalController@contarAnimales');
+
+//********** RUTAS DESPACHOS - JUAN */
+
+Route::resource('/despachos', 'despachosController');
+
+Route::get('/buscarDestinos/{id}','destinosController@buscarDestinos');
+
+Route::get('/despachoAgregar','despachosController@nuevoDespacho');
+
+Route::get('/despachosBuscar/{cadena}','despachosController@buscarDespacho');
+
+Route::get('/contarDespachos','despachosController@contarDespachos');
+
+Route::get('/despachosBuscarFecha/{cadena}','despachosController@buscarDespachoFecha');

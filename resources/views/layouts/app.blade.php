@@ -63,8 +63,8 @@
                                 <b>Destinos</b>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">Listado de destinos</a>
-                                <a class="dropdown-item" href="#">Agregar envio</a>
+                                <a class="dropdown-item" href="/despachos">Listado de destinos</a>
+                                <a class="dropdown-item" href="/despachoAgregar">Agregar envio</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">

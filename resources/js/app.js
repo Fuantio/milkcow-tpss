@@ -98,6 +98,26 @@ const app = new Vue({
         ocultarMostrarAnteriorVaca: '',
         ocultarMostrarSiguienteVaca: '',
         botonesVaca: [],
+
+        //*************VARIABLES DE DESPACHO - JUAN */
+
+        cantidad: '',
+        fecha: '',
+        destinos: [],
+        textoDespachos: '',
+        fechaDespachos: '',
+        despachos: [],
+        totalDespachos: 0,
+        despachosPagina: 5,
+        paginasDespacho: '',
+        paginaActual: 1,
+        desdeDespacho: '',
+        hastaDespacho: '',
+        ocultarMostrarAnteriorDespacho: '',
+        ocultarMostrarSiguienteDespacho: '',
+        botonesDespacho: [],
+        arregloDespachos: [],
+
     },
     methods:{
          //*************MÉTODOS DE NOVEDADES DE ANIMALES -JHORMAN */ 
@@ -688,6 +708,129 @@ const app = new Vue({
                 this.paginar(this.paginaActual);
     
             }
+            //************* METODOS DE DESPACHO - JUAN */
+            eliminarDespachos: function (id_despacho) {
+
+                var eliminar = confirm("¿Esta seguro  que quiere eliminar el Despacho?");
+    
+                if (eliminar == true) {
+    
+                    axios.delete('http://127.0.0.1:8000/despachos/' + id_despacho).then((respuesta) => {
+    
+                        console.log(respuesta);
+    
+                        window.location.href = "http://127.0.0.1:8000/despachos/";
+    
+                    });
+    
+                }
+            },
+            buscarDespacho: function () {
+    
+                if (this.textoDespachos.length > 0) {
+    
+                    axios.get('http://127.0.0.1:8000/despachosBuscar/' + this.textoDespachos).then((respuesta) => {
+    
+                        this.despachos = respuesta.data;
+    
+                        this.paginas = Math.ceil(this.despachos.length / this.despachosPagina);
+    
+                    });
+    
+                } else {
+    
+                    axios.get('http://127.0.0.1:8000/despachosBuscar/-').then((respuesta) => {
+    
+                        this.despachos = respuesta.data;
+    
+                        this.paginas = Math.ceil(this.despachos.length / this.despachosPagina);
+    
+                    });
+                }
+            },
+            buscarDespachoFecha: function () {
+    
+                if(this.fechaDespachos.length > 0) {
+    
+                    axios.get('http://127.0.0.1:8000/despachosBuscarFecha/' + this.fechaDespachos).then((respuesta) => {
+    
+                        this.despachos = respuesta.data;
+    
+                        this.paginas = Math.ceil(this.despachos.length / this.despachosPagina);
+                    });
+    
+                } else {
+    
+                    axios.get('http://127.0.0.1:8000/despachosBuscarFecha/-').then((respuesta) => {
+    
+                        this.despachos = respuesta.data;
+    
+                        this.paginas = Math.ceil(this.despachos.length / this.despachosPagina);
+    
+                    });
+                }
+            },
+            consultaNumeroDespachos: function(){
+    
+                axios.get(consultaCantidadDespachos).then((respuesta) => {
+    
+                    this.totalDespachos = respuesta.data
+    
+                    this.paginas = Math.ceil(this.totalDespachos / this.despachosPagina);
+    
+                })
+            },
+            paginarDespacho: function(pagina){
+    
+                this.paginaActual = pagina;
+    
+                this.desdeDespacho = ((this.paginaActual - 1 ) * this.despachosPagina);
+                this.hastaDespacho = this.paginaActual * this.despachosPagina;
+    
+                if (this.paginaActual == 1){
+    
+                    this.ocultarMostrarAnteriorDespacho = "page-item disabled";
+    
+                }else{
+    
+                    this.ocultarMostrarAnteriorDespacho = "page-item";
+                }
+    
+                if (this.paginaActual == this.paginasDespacho){
+    
+                    this.ocultarMostrarSiguienteDespacho = "page-item disabled";
+    
+                }else{
+    
+                    this.ocultarMostrarSiguienteDespacho = "page-item";
+                }
+    
+                for (i = 0; i <= this.paginasDespacho; i++){
+    
+    
+                    if (( i + 1) == this.paginaActual){
+    
+                        this.botonesDespacho[i] = "page-item active";
+    
+                    } else{
+    
+                        this.botonesDespacho[i] = "page-item";
+                    }
+                }
+    
+            },
+            anterior: function() {
+    
+                this.paginaActual = this.paginaActual - 1;
+                this.paginarDespacho(this.paginaActual);
+    
+            },
+            siguiente: function() {
+    
+                this.paginaActual = this.paginaActual + 1;
+                this.paginarDespacho(this.paginaActual);
+    
+            }
     },
 
         mounted(){
@@ -709,6 +852,10 @@ const app = new Vue({
             this.buscar_animales()
             this.consultarNumeroAnimales()
             this.paginar(1)
-            
+            //************MOUNTED DE DESPACHO - JUAN */
+            this.buscarDespacho()
+            this.buscarDespachoFecha()
+            this.consultaNumeroDespachos()
+            this.paginarDespacho(1)
         }
 }});
