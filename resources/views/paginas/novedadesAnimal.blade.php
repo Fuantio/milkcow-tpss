@@ -81,7 +81,7 @@
                             </li>
 
                             <li v-for="(pagina, index) in paginasNovedadAnimal" v-bind:class="botonesNovedadAnimal[index]">                                 
-                                <a class="page-link" href="#" v-on:click="paginar(pagina)">@{{pagina}}</a>
+                                <a class="page-link" href="#" v-on:click="paginarNovedadAnimal(pagina)">@{{pagina}}</a>
                             </li>
 
                             <li v-if="paginasNovedadAnimal == 1" class="page-item disabled">

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 
 use App\NovedadAnimalModel;
@@ -33,11 +32,11 @@ class NovedadAnimalController extends Controller
 
         $vacas = VacaModel::all();
         $usuarios = User::all();
-        $novedadA = NovedadAnimalModel::where("id_novedades", $id_novedades)->get();
+        $novedadAn = NovedadAnimalModel::where("id_novedades", $id_novedades)->get();
 
-        if (count($novedadA) != 0) {
+        if (count($novedadAn) != 0) {
 
-            return view("paginas.editarNovedadAnimal", array("novedadA" => $novedadA, "vacas" => $vacas, "usuarios" => $usuarios));
+            return view("paginas.editarNovedadAnimal", array("novedadAn" => $novedadAn, "vacas" => $vacas, "usuarios" => $usuarios));
         } else {
 
             return view("paginas.editarNovedadAnimal", array("estatus" => 404));

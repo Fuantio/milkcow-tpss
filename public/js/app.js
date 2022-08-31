@@ -49885,10 +49885,11 @@ var app = new Vue({
         _this.paginasNovedadAnimal = Math.ceil(_this.totalNovedades / _this.novedadesPagina);
       });
     },
-    paginar: function paginar(pagina) {
+    paginarNovedadAnimal: function paginarNovedadAnimal(pagina) {
       this.paginaActualNovedadAnimal = pagina;
       this.desdeNovedadAnimal = (this.paginaActualNovedadAnimal - 1) * this.novedadesPagina;
       this.hastaNovedadAnimal = this.paginaActualNovedadAnimal * this.novedadesPagina;
+      console.log(this.desdeNovedadAnimal);
 
       if (this.paginaActualNovedadAnimal == 1) {
         this.ocultarMostrarAnteriorNovedadAnimal = "page-item disabled";
@@ -50380,7 +50381,7 @@ var app = new Vue({
     this.buscarNovedades();
     this.buscarNovedades();
     this.consultaNumeroNovedades();
-    this.paginar(1); //*************MOUNTED DE PRODUCCION -FUAN */ 
+    this.paginarNovedadAnimal(1); //*************MOUNTED DE PRODUCCION -FUAN */ 
 
     this.buscarProduccion();
     this.consultaNumeroProducciones();
