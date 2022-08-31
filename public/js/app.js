@@ -50248,7 +50248,7 @@ var app = new Vue({
         });
       }
     },
-    buscar_animales: function buscar_animales() {
+    textoAnimales: function textoAnimales() {
       var _this10 = this;
 
       if (this.nombre_vaca.length > 0) {

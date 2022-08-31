@@ -647,7 +647,7 @@ const app = new Vue({
                 }
             },
     
-            buscar_animales: function () {
+            textoAnimales: function () {
                 
                 if (this.nombre_vaca.length > 0) {
                     axios.get('http://127.0.0.1:8000/buscarAnimales/' + this.nombre_vaca).then((respuesta) => {

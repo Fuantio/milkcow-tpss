@@ -7,26 +7,26 @@
     <div class="form-group col-md-4">
 
         <h3>Buscar Animales:</h3>
-        <input v-model="nombre_vaca" type="text" class="form-control" v-on:keyup="buscar_animales">
+        <input v-model="nombre_vaca" type="text" class="form-control" v-on:keyup="textoAnimales">
     </div>
 
     <nav aria-label="Page navigation example">
         <ul class="pagination">
-            <li v-bind:class="ocultarMostrarAnterior">
+            <li v-bind:class="ocultarMostrarAnteriorVaca">
                 <a v-on:click="anterior" class="page-link" href="#" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
 
-            <li v-for="(pagina, index) in paginas"  v-bind:class="botonesVaca[index]">
+            <li v-for="(pagina, index) in paginasVaca"  v-bind:class="botonesVaca[index]">
                 <a class="page-link" href="#" v-on:click="paginar(pagina)">@{{pagina}}</a>
             </li>
-            <li v-if="paginas == 1" class="page-item disabled">
+            <li v-if="paginasVaca == 1" class="page-item disabled">
                 <a class="page-link" href="#" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
-            <li v-else v-bind:class="ocultarMostrarSiguiente">
+            <li v-else v-bind:class="ocultarMostrarSiguienteVaca">
                 <a v-on:click="siguiente" class="page-link" href="#" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
