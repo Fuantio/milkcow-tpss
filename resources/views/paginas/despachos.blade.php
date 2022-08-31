@@ -71,13 +71,13 @@
                 </a>
             </li>
 
-            <li v-for="(pagina, index) in paginas" v-bind:class="botonesDespacho[index]">
+            <li v-for="(pagina, index) in paginasDespacho" v-bind:class="botonesDespacho[index]">
 
                 <a class="page-link" href="#" v-on:click="paginarDespacho(pagina)">@{{ pagina }}</a>
 
             </li>
 
-            <li v-if="paginas == 1 " class="page-item disabled">
+            <li v-if="paginasDespacho == 1 " class="page-item disabled">
 
                 <a class="page-link" href="#" aria-label="Next">
 

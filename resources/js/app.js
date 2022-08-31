@@ -707,7 +707,7 @@ const app = new Vue({
                 this.paginaActual = this.paginaActual + 1;
                 this.paginar(this.paginaActual);
     
-            }
+            },
             //************* METODOS DE DESPACHO - JUAN */
             eliminarDespachos: function (id_despacho) {
 
