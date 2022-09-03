@@ -91,7 +91,7 @@ class NovedadAnimalController extends Controller
 
             if ($tipo_de_novedad == 'MUERTE') {
 
-               $vaca = VacaModel::where('Id_animal', $Id_animal)->update(['estado_vaca'=>'muerta']);
+               $vaca = VacaModel::where('Id_animal', $Id_animal)->update(['estado'=>'muerta']);
 
                 
             }

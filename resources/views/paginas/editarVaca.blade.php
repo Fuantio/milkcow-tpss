@@ -118,7 +118,7 @@
                                     @foreach ($rebanos as $rebano)
 
 
-                                    <option value="{{ $rebano['id_Rebano']}}" @if($rebano['id_Rebano']==$animal['id_rebano']){{ 'selected' }}@endif>{{$rebano['num_lote']}}</option>
+                                    <option value="{{ $rebano['id_Rebano']}}" @if($rebano['id_rebano']==$animal['id_rebano']){{ 'selected' }}@endif>{{$rebano['num_lote']}}</option>
 
                                     @endforeach
 

@@ -83,3 +83,17 @@ Route::get('/despachosBuscar/{cadena}','despachosController@buscarDespacho');
 Route::get('/contarDespachos','despachosController@contarDespachos');
 
 Route::get('/despachosBuscarFecha/{cadena}','despachosController@buscarDespachoFecha');
+
+//********** RUTAS NOVEDADES PRODUCCION - JOHAN */
+
+Route::get('/produccionBuscar/{id}','produccionController@buscarProduccion');
+
+Route::get('/novedadProduccionAgregar', 'NovedadProduccionController@nuevaNovedad');
+
+Route::get('/buscarParaNovedad/{fecha}', 'NovedadProduccionController@buscarParaNovedad');
+
+Route::resource('/novedadesProduccion', 'NovedadProduccionController');
+
+Route::get('/buscarNovedadesProduccion/{texto}','NovedadProduccionController@buscarNovedades');
+
+Route::get('/contarNovedadesProduccion', 'NovedadProduccionController@contarNovedadesProduccion');

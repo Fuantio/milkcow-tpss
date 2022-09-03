@@ -100,7 +100,7 @@
                                     @foreach ($rebanos as $rebano)
 
 
-                                    <option value="{{ $rebano['id_Rebano']}}">{{$rebano['num_lote']}}</option>
+                                    <option value="{{ $rebano['id_rebano']}}">{{$rebano['num_lote']}}</option>
 
                                     @endforeach
 

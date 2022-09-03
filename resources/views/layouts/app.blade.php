@@ -77,8 +77,8 @@
                                 <a class="dropdown-item" href="/agregarNovedadAnimal">Agregar novedad a.</a>
                                 <a class="dropdown-item" href=""></a>
                                 <a class="dropdown-item" href=""><b>Novedades producción</b></a>
-                                <a class="dropdown-item" href="">Lista de novedades p.</a>
-                                <a class="dropdown-item" href="">Agregar novedad p.</a>
+                                <a class="dropdown-item" href="/novedadesProduccion">Lista de novedades p.</a>
+                                <a class="dropdown-item" href="/novedadProduccionAgregar">Agregar novedad p.</a>
                             </div>
                         </li>
                         @if ( Auth::user()->type_user == 'Instructor')

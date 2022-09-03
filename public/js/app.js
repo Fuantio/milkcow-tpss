@@ -49806,7 +49806,9 @@ var consultarCantidadUsuarios = "http://127.0.0.1:8000/contarUsuarios"; //******
 
 var consultarCantidadAnimales = "http://127.0.0.1:8000/contarAnimales"; //********* CONSTANTE DESPACHOS - JUAN */
 
-var consultaCantidadDespachos = "http://127.0.0.1:8000/contarDespachos";
+var consultaCantidadDespachos = "http://127.0.0.1:8000/contarDespachos"; //********* CONSTANTE NOVEDAD PRODUCCION - JOHAN */
+
+var consultaCantidadNovedadesProduccion = "http://127.0.0.1:8000/contarNovedadesProduccion";
 var app = new Vue({
   el: '#app',
   data: (_data = {
@@ -49874,7 +49876,7 @@ var app = new Vue({
     totalDespachos: 0,
     despachosPagina: 5,
     paginasDespacho: ''
-  }, _defineProperty(_data, "paginaActual", 1), _defineProperty(_data, "desdeDespacho", ''), _defineProperty(_data, "hastaDespacho", ''), _defineProperty(_data, "ocultarMostrarAnteriorDespacho", ''), _defineProperty(_data, "ocultarMostrarSiguienteDespacho", ''), _defineProperty(_data, "botonesDespacho", []), _defineProperty(_data, "arregloDespachos", []), _data),
+  }, _defineProperty(_data, "paginaActual", 1), _defineProperty(_data, "desdeDespacho", ''), _defineProperty(_data, "hastaDespacho", ''), _defineProperty(_data, "ocultarMostrarAnteriorDespacho", ''), _defineProperty(_data, "ocultarMostrarSiguienteDespacho", ''), _defineProperty(_data, "botonesDespacho", []), _defineProperty(_data, "arregloDespachos", []), _defineProperty(_data, "id_novedad_produccion", 0), _defineProperty(_data, "totalNovedadesProduccion", 0), _defineProperty(_data, "novedadesProduccionPagina", 5), _defineProperty(_data, "paginasNP", ''), _defineProperty(_data, "paginaActual", 1), _defineProperty(_data, "desdeNP", ''), _defineProperty(_data, "hastaNP", ''), _defineProperty(_data, "ocultarMostrarAnteriorNP", ''), _defineProperty(_data, "ocultarMostrarSiguienteNP", ''), _defineProperty(_data, "botonesNP", []), _defineProperty(_data, "arregloNovedadesProduccion", []), _defineProperty(_data, "ID_Produccion", 0), _defineProperty(_data, "textoNovedadProduccion", ''), _defineProperty(_data, "datosProduccion", []), _defineProperty(_data, "fecha_novedad_produccion", ''), _defineProperty(_data, "arregloProducciones", []), _data),
   methods: (_methods = {
     //*************MÉTODOS DE NOVEDADES DE ANIMALES -JHORMAN */ 
     consultaNumeroNovedades: function consultaNumeroNovedades() {
@@ -49913,11 +49915,11 @@ var app = new Vue({
     },
     anterior: function anterior() {
       this.paginaActualNovedadAnimal = this.paginaActualNovedadAnimal - 1;
-      this.paginar(this.paginaActualNovedadAnimal);
+      this.paginarNovedadAnimal(this.paginaActualNovedadAnimal);
     },
     siguiente: function siguiente() {
       this.paginaActualNovedadAnimal = this.paginaActualNovedadAnimal + 1;
-      this.paginar(this.paginaActualNovedadAnimal);
+      this.paginarNovedadAnimal(this.paginaActualNovedadAnimal);
     },
     calcular: function calcular() {
       if (this.operacion == 'suma') {
@@ -50375,6 +50377,90 @@ var app = new Vue({
   }), _defineProperty(_methods, "siguiente", function siguiente() {
     this.paginaActual = this.paginaActual + 1;
     this.paginarDespacho(this.paginaActual);
+  }), _defineProperty(_methods, "eliminarNovedadProduccion", function eliminarNovedadProduccion(id_novedad_produccion) {
+    var eliminar = confirm("Está segur@ de que quiere eliminar el registro?");
+
+    if (eliminar == true) {
+      axios["delete"]('http://127.0.0.1:8000/novedadesProduccion/' + id_novedad_produccion).then(function (respuesta) {
+        console.log(respuesta);
+        window.location.href = "http://127.0.0.1:8000/novedadesProduccion/";
+      });
+    }
+  }), _defineProperty(_methods, "buscarNovedades", function buscarNovedades() {
+    var _this15 = this;
+
+    if (this.fecha_novedad_produccion.length > 0) {
+      console.log(this.fecha_novedad_produccion);
+      axios.get('http://127.0.0.1:8000/buscarNovedadesProduccion/' + this.fecha_novedad_produccion).then(function (respuesta) {
+        _this15.arregloNovedadesProduccion = respuesta.data;
+        _this15.paginas = Math.ceil(_this15.arregloNovedadesProduccion.length / _this15.novedadesProduccionPagina);
+        return _this15.arregloNovedadesProduccion;
+      });
+    } else {
+      axios.get('http://127.0.0.1:8000/buscarNovedadesProduccion/-').then(function (respuesta) {
+        _this15.arregloNovedadesProduccion = respuesta.data;
+        _this15.paginas = Math.ceil(_this15.arregloNovedadesProduccion.length / _this15.novedadesProduccionPagina);
+        return _this15.arregloNovedadesProduccion;
+      });
+    }
+  }), _defineProperty(_methods, "buscarProduccionesParaNovedad", function buscarProduccionesParaNovedad() {
+    var _this16 = this;
+
+    if (this.fecha_novedad_produccion.length > 0) {
+      console.log(this.fecha_novedad_produccion);
+      axios.get('http://127.0.0.1:8000/buscarParaNovedad/' + this.fecha_novedad_produccion).then(function (respuesta) {
+        _this16.arregloProducciones = respuesta.data;
+        return _this16.arregloProducciones;
+      });
+    } else {
+      axios.get('http://127.0.0.1:8000/buscarParaNovedad/-').then(function (respuesta) {
+        _this16.arregloProducciones = respuesta.data;
+        return _this16.arregloProducciones;
+      });
+    }
+  }), _defineProperty(_methods, "buscarNovedadesProduccion", function buscarNovedadesProduccion() {
+    var _this17 = this;
+
+    axios.get('http://127.0.0.1:8000/buscarNovedadesProduccion/-').then(function (respuesta) {
+      _this17.arregloNovedadesProduccion = respuesta.data;
+    });
+    return this.arregloNovedadesProduccion;
+  }), _defineProperty(_methods, "consultaNumeroNovedadesProduccion", function consultaNumeroNovedadesProduccion() {
+    var _this18 = this;
+
+    axios.get(consultaCantidadNovedadesProduccion).then(function (respuesta) {
+      _this18.totalNovedadesProduccion = respuesta.data;
+    });
+  }), _defineProperty(_methods, "paginarNP", function paginarNP(pagina) {
+    this.paginaActual = pagina;
+    this.desdeNP = (this.paginaActual - 1) * this.novedadesProduccionPagina;
+    this.hastaNP = this.paginaActual * this.novedadesProduccionPagina;
+
+    if (this.paginaActual == 1) {
+      this.ocultarMostrarAnteriorNP = "page-item disabled";
+    } else {
+      this.ocultarMostrarAnteriorNP = "page-item";
+    }
+
+    if (this.paginaActual == this.paginasNP) {
+      this.ocultarMostrarSiguienteNP = "page-item disabled";
+    } else {
+      this.ocultarMostrarSiguienteNP = "page-item";
+    }
+
+    for (i = 0; i <= this.paginasNP; i++) {
+      if (i + 1 == this.paginaActual) {
+        this.botonesNP[i] = "page-item active";
+      } else {
+        this.botonesNP[i] = "page-item";
+      }
+    }
+  }), _defineProperty(_methods, "anterior", function anterior() {
+    this.paginaActual = this.paginaActual - 1;
+    this.paginarNP(this.paginaActual);
+  }), _defineProperty(_methods, "siguiente", function siguiente() {
+    this.paginaActual = this.paginaActual + 1;
+    this.paginarNP(this.paginaActual);
   }), _methods),
   mounted: function mounted() {
     //*************MOUNTED DE NOVEDADES ANIMAL -JHORMAN */ 
@@ -50398,7 +50484,11 @@ var app = new Vue({
     this.buscarDespacho();
     this.buscarDespachoFecha();
     this.consultaNumeroDespachos();
-    this.paginarDespacho(1);
+    this.paginarDespacho(1); //***********MOUNTED DE NOVEDAD PRODUCCIO - JOHAN  */
+
+    this.buscarNovedadesProduccion();
+    this.consultaNumeroNovedadesProduccion();
+    this.paginarNP(1);
   }
 });
 
@@ -50536,8 +50626,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\xd\htdocs\xdxd\milkcow-tpss\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\xd\htdocs\xdxd\milkcow-tpss\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\milkcow-tps\milkcow-tpss\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\milkcow-tps\milkcow-tpss\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -36,6 +36,8 @@ const consultarCantidadUsuarios = "http://127.0.0.1:8000/contarUsuarios"
 const consultarCantidadAnimales = "http://127.0.0.1:8000/contarAnimales"
 //********* CONSTANTE DESPACHOS - JUAN */
 const consultaCantidadDespachos = "http://127.0.0.1:8000/contarDespachos"
+//********* CONSTANTE NOVEDAD PRODUCCION - JOHAN */
+const consultaCantidadNovedadesProduccion = "http://127.0.0.1:8000/contarNovedadesProduccion"
 
 const app = new Vue({
 
@@ -121,6 +123,24 @@ const app = new Vue({
         botonesDespacho: [],
         arregloDespachos: [],
 
+        //*************VARIABLES DE NOVEDADES DE PRODUCCION - JOHAN  */
+
+        id_novedad_produccion: 0,
+        totalNovedadesProduccion: 0,
+        novedadesProduccionPagina: 5,
+        paginasNP: '',
+        paginaActual: 1,
+        desdeNP: '',
+        hastaNP: '',
+        ocultarMostrarAnteriorNP: '',
+        ocultarMostrarSiguienteNP: '',
+        botonesNP: [],
+        arregloNovedadesProduccion: [],
+        ID_Produccion: 0,
+        textoNovedadProduccion: '',
+        datosProduccion: [],
+        fecha_novedad_produccion: '',
+        arregloProducciones: []
     },
     methods:{
          //*************MÉTODOS DE NOVEDADES DE ANIMALES -JHORMAN */ 
@@ -181,14 +201,14 @@ const app = new Vue({
         anterior: function(){
 
             this.paginaActualNovedadAnimal = this.paginaActualNovedadAnimal - 1;
-            this.paginar(this.paginaActualNovedadAnimal);
+            this.paginarNovedadAnimal(this.paginaActualNovedadAnimal);
 
         },
 
         siguiente: function(){
 
             this.paginaActualNovedadAnimal = this.paginaActualNovedadAnimal + 1;
-            this.paginar(this.paginaActualNovedadAnimal);
+            this.paginarNovedadAnimal(this.paginaActualNovedadAnimal);
 
         },
 
@@ -836,6 +856,153 @@ const app = new Vue({
                 this.paginaActual = this.paginaActual + 1;
                 this.paginarDespacho(this.paginaActual);
     
+            },
+
+            //****************METODOS NOVEDAD PRODUCCION - JOHAN */
+            eliminarNovedadProduccion: function(id_novedad_produccion){
+
+                var  eliminar = confirm("Está segur@ de que quiere eliminar el registro?");
+    
+                if(eliminar == true){
+    
+                    axios.delete('http://127.0.0.1:8000/novedadesProduccion/'+ id_novedad_produccion).then((respuesta)=>{
+    
+                    console.log(respuesta);
+    
+                    window.location.href="http://127.0.0.1:8000/novedadesProduccion/"
+                    });
+                }
+            },
+    
+            buscarNovedades: function () {
+    
+                if (this.fecha_novedad_produccion.length > 0) {
+    
+                     console.log(this.fecha_novedad_produccion)
+                    axios.get('http://127.0.0.1:8000/buscarNovedadesProduccion/' + this.fecha_novedad_produccion).then((respuesta) => {
+    
+                        this.arregloNovedadesProduccion = respuesta.data;
+    
+                        this.paginas = Math.ceil(this.arregloNovedadesProduccion.length / this.novedadesProduccionPagina);
+    
+                        return this.arregloNovedadesProduccion;
+                    });
+                } else {
+    
+                    axios.get('http://127.0.0.1:8000/buscarNovedadesProduccion/-').then((respuesta) => {
+    
+                        this.arregloNovedadesProduccion = respuesta.data;
+    
+                        this.paginas = Math.ceil(this.arregloNovedadesProduccion.length / this.novedadesProduccionPagina);
+    
+                        return this.arregloNovedadesProduccion;
+                    });
+                }
+    
+    
+            },
+            buscarProduccionesParaNovedad: function () {
+    
+                if (this.fecha_novedad_produccion.length > 0) {
+    
+                     console.log(this.fecha_novedad_produccion)
+                    axios.get('http://127.0.0.1:8000/buscarParaNovedad/' + this.fecha_novedad_produccion).then((respuesta) => {
+    
+                        this.arregloProducciones = respuesta.data;
+    
+    
+                        return this.arregloProducciones;
+                    });
+                } else {
+    
+                    axios.get('http://127.0.0.1:8000/buscarParaNovedad/-').then((respuesta) => {
+    
+                        this.arregloProducciones = respuesta.data;
+    
+    
+                        return this.arregloProducciones;
+                    });
+                }
+    
+    
+            },
+    
+    
+            buscarNovedadesProduccion: function () {
+    
+                axios.get('http://127.0.0.1:8000/buscarNovedadesProduccion/-').then((respuesta) => {
+    
+                    this.arregloNovedadesProduccion = respuesta.data
+    
+                })
+                return this.arregloNovedadesProduccion
+            },
+    
+            consultaNumeroNovedadesProduccion: function () {
+    
+                axios.get(consultaCantidadNovedadesProduccion).then((respuesta) => {
+    
+                    this.totalNovedadesProduccion = respuesta.data
+    
+                })
+            },
+    
+            paginarNP: function (pagina) {
+    
+                this.paginaActual = pagina;
+    
+                this.desdeNP = ((this.paginaActual - 1) * this.novedadesProduccionPagina);
+                this.hastaNP = this.paginaActual * this.novedadesProduccionPagina;
+    
+                if (this.paginaActual == 1) {
+    
+                    this.ocultarMostrarAnteriorNP = "page-item disabled";
+    
+                } else {
+    
+                    this.ocultarMostrarAnteriorNP = "page-item";
+    
+                }
+    
+                if (this.paginaActual == this.paginasNP) {
+    
+                    this.ocultarMostrarSiguienteNP = "page-item disabled";
+    
+                } else {
+    
+                    this.ocultarMostrarSiguienteNP = "page-item";
+    
+                }
+    
+                for (i = 0; i <= this.paginasNP; i++) {
+    
+    
+                    if ((i + 1) == this.paginaActual) {
+    
+                        this.botonesNP[i] = "page-item active";
+    
+                    } else {
+    
+                        this.botonesNP[i] = "page-item";
+    
+                    }
+                }
+    
+    
+            },
+    
+            anterior: function () {
+    
+                this.paginaActual = this.paginaActual - 1;
+                this.paginarNP(this.paginaActual);
+    
+            },
+    
+            siguiente: function () {
+    
+                this.paginaActual = this.paginaActual + 1;
+                this.paginarNP(this.paginaActual);
+    
             }
     },
 
@@ -863,5 +1030,9 @@ const app = new Vue({
             this.buscarDespachoFecha()
             this.consultaNumeroDespachos()
             this.paginarDespacho(1)
+            //***********MOUNTED DE NOVEDAD PRODUCCIO - JOHAN  */
+            this.buscarNovedadesProduccion()
+            this.consultaNumeroNovedadesProduccion()
+            this.paginarNP(1)
         }
 });

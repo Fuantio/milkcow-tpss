@@ -19,8 +19,8 @@
                        y beneficios del personal de esta área.</p>
 
                        <p style="text-align:center;"><b>Los encargados de la elaboracion de este sistema son:</b></p>
-                       <p style="text-align:center;">Juan sebastian guzman bonilla<br>Jhorman steveen saavedra gomez
-                        <br>Daniela tole moreno <br>Johan fabian gonzales cuervo <br>Juan david cuervo lamprea</p>
+                       <p style="text-align:center;">Juan Sebastian Guzman Bonilla<br>Jhorman Steveen Saavedra Gomez
+                        <br>Daniela Tole Moreno <br>Johan Fabian Gonzales Cuervo <br>Juan David Cuervo Lamprea <br>Wilfren Correa Montoya</p>
                     
         
                 </div>
