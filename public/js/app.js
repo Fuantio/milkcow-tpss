@@ -49921,23 +49921,6 @@ var app = new Vue({
       this.paginaActualNovedadAnimal = this.paginaActualNovedadAnimal + 1;
       this.paginarNovedadAnimal(this.paginaActualNovedadAnimal);
     },
-    calcular: function calcular() {
-      if (this.operacion == 'suma') {
-        this.resultado = parseInt(this.num1) + parseInt(this.num2);
-      }
-
-      if (this.operacion == 'resta') {
-        this.resultado = parseInt(this.num1) - parseInt(this.num2);
-      }
-
-      if (this.operacion == 'multi') {
-        this.resultado = parseInt(this.num1) * parseInt(this.num2);
-      }
-
-      if (this.operacion == 'div') {
-        this.resultado = parseInt(this.num1) / parseInt(this.num2);
-      }
-    },
     eliminarNovedad: function eliminarNovedad(id_novedades) {
       var eliminar = confirm("¿Esta seguro que quiere eliminar este dato de novedad?");
 
@@ -49950,6 +49933,8 @@ var app = new Vue({
     },
     buscarNovedades: function buscarNovedades() {
       var _this2 = this;
+
+      console.log("holaaaa");
 
       if (this.fechaNovedad.length > 0) {
         axios.get('http://127.0.0.1:8000/novedadAnimalBuscar/' + this.fechaNovedad).then(function (respuesta) {
@@ -50258,12 +50243,12 @@ var app = new Vue({
     if (this.nombre_vaca.length > 0) {
       axios.get('http://127.0.0.1:8000/buscarAnimales/' + this.nombre_vaca).then(function (respuesta) {
         _this10.arregloAnimales = respuesta.data;
-        _this10.paginas = Math.ceil(_this10.arregloAnimales.length / _this10.animalesPaginas);
+        _this10.paginasVaca = Math.ceil(_this10.arregloAnimales.length / _this10.animalesPaginas);
       });
     } else {
       axios.get('http://127.0.0.1:8000/buscarAnimales/-').then(function (respuesta) {
         _this10.arregloAnimales = respuesta.data;
-        _this10.paginas = Math.ceil(_this10.arregloAnimales.length / _this10.animalesPaginas);
+        _this10.paginasVaca = Math.ceil(_this10.arregloAnimales.length / _this10.animalesPaginas);
       });
     }
   }), _defineProperty(_methods, "consultarNumeroAnimales", function consultarNumeroAnimales() {
@@ -50271,7 +50256,7 @@ var app = new Vue({
 
     axios.get(consultarCantidadAnimales).then(function (respuesta) {
       _this11.totalAnimales = respuesta.data;
-      _this11.paginas = Math.ceil(_this11.totalAnimales / _this11.animalesPaginas);
+      _this11.paginasVaca = Math.ceil(_this11.totalAnimales / _this11.animalesPaginas);
     });
   }), _defineProperty(_methods, "paginar", function paginar(pagina) {
     this.paginaActual = pagina;
@@ -50318,12 +50303,12 @@ var app = new Vue({
     if (this.textoDespachos.length > 0) {
       axios.get('http://127.0.0.1:8000/despachosBuscar/' + this.textoDespachos).then(function (respuesta) {
         _this12.despachos = respuesta.data;
-        _this12.paginas = Math.ceil(_this12.despachos.length / _this12.despachosPagina);
+        _this12.paginasDespacho = Math.ceil(_this12.despachos.length / _this12.despachosPagina);
       });
     } else {
       axios.get('http://127.0.0.1:8000/despachosBuscar/-').then(function (respuesta) {
         _this12.despachos = respuesta.data;
-        _this12.paginas = Math.ceil(_this12.despachos.length / _this12.despachosPagina);
+        _this12.paginasDespacho = Math.ceil(_this12.despachos.length / _this12.despachosPagina);
       });
     }
   }), _defineProperty(_methods, "buscarDespachoFecha", function buscarDespachoFecha() {
@@ -50332,12 +50317,12 @@ var app = new Vue({
     if (this.fechaDespachos.length > 0) {
       axios.get('http://127.0.0.1:8000/despachosBuscarFecha/' + this.fechaDespachos).then(function (respuesta) {
         _this13.despachos = respuesta.data;
-        _this13.paginas = Math.ceil(_this13.despachos.length / _this13.despachosPagina);
+        _this13.paginasDespacho = Math.ceil(_this13.despachos.length / _this13.despachosPagina);
       });
     } else {
       axios.get('http://127.0.0.1:8000/despachosBuscarFecha/-').then(function (respuesta) {
         _this13.despachos = respuesta.data;
-        _this13.paginas = Math.ceil(_this13.despachos.length / _this13.despachosPagina);
+        _this13.paginasDespacho = Math.ceil(_this13.despachos.length / _this13.despachosPagina);
       });
     }
   }), _defineProperty(_methods, "consultaNumeroDespachos", function consultaNumeroDespachos() {
@@ -50345,7 +50330,7 @@ var app = new Vue({
 
     axios.get(consultaCantidadDespachos).then(function (respuesta) {
       _this14.totalDespachos = respuesta.data;
-      _this14.paginas = Math.ceil(_this14.totalDespachos / _this14.despachosPagina);
+      _this14.paginasDespacho = Math.ceil(_this14.totalDespachos / _this14.despachosPagina);
     });
   }), _defineProperty(_methods, "paginarDespacho", function paginarDespacho(pagina) {
     this.paginaActual = pagina;
@@ -50386,20 +50371,20 @@ var app = new Vue({
         window.location.href = "http://127.0.0.1:8000/novedadesProduccion/";
       });
     }
-  }), _defineProperty(_methods, "buscarNovedades", function buscarNovedades() {
+  }), _defineProperty(_methods, "buscarNovedadesProduccion", function buscarNovedadesProduccion() {
     var _this15 = this;
 
     if (this.fecha_novedad_produccion.length > 0) {
       console.log(this.fecha_novedad_produccion);
       axios.get('http://127.0.0.1:8000/buscarNovedadesProduccion/' + this.fecha_novedad_produccion).then(function (respuesta) {
         _this15.arregloNovedadesProduccion = respuesta.data;
-        _this15.paginas = Math.ceil(_this15.arregloNovedadesProduccion.length / _this15.novedadesProduccionPagina);
+        _this15.paginasNP = Math.ceil(_this15.arregloNovedadesProduccion.length / _this15.novedadesProduccionPagina);
         return _this15.arregloNovedadesProduccion;
       });
     } else {
       axios.get('http://127.0.0.1:8000/buscarNovedadesProduccion/-').then(function (respuesta) {
         _this15.arregloNovedadesProduccion = respuesta.data;
-        _this15.paginas = Math.ceil(_this15.arregloNovedadesProduccion.length / _this15.novedadesProduccionPagina);
+        _this15.paginasNP = Math.ceil(_this15.arregloNovedadesProduccion.length / _this15.novedadesProduccionPagina);
         return _this15.arregloNovedadesProduccion;
       });
     }
@@ -50423,6 +50408,7 @@ var app = new Vue({
 
     axios.get('http://127.0.0.1:8000/buscarNovedadesProduccion/-').then(function (respuesta) {
       _this17.arregloNovedadesProduccion = respuesta.data;
+      _this17.paginasNP = Math.ceil(_this17.arregloNovedadesProduccion.length / _this17.novedadesProduccionPagina);
     });
     return this.arregloNovedadesProduccion;
   }), _defineProperty(_methods, "consultaNumeroNovedadesProduccion", function consultaNumeroNovedadesProduccion() {
@@ -50464,7 +50450,6 @@ var app = new Vue({
   }), _methods),
   mounted: function mounted() {
     //*************MOUNTED DE NOVEDADES ANIMAL -JHORMAN */ 
-    this.buscarNovedades();
     this.buscarNovedades();
     this.consultaNumeroNovedades();
     this.paginarNovedadAnimal(1); //*************MOUNTED DE PRODUCCION -FUAN */ 
@@ -50626,8 +50611,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\milkcow-tps\milkcow-tpss\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\milkcow-tps\milkcow-tpss\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\frontend\milkcow-tpss\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\frontend\milkcow-tpss\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

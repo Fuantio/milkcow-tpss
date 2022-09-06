@@ -36,7 +36,7 @@
                                 <select name="ID_Produccion" id="ID_Produccion" class="form-control">
                                     <option value="">Seleccione una opción</option>
                                     <!--ponemos el nombre de la vaca para mostrar pero se guarda el id de produccion -->
-                                   <option v-for="produccion in arregloProducciones" v-bind:value="produccion.ID_Produccion">@{{ produccion.nombre }}</option>
+                                   <option v-for="produccion in arregloProducciones" v-bind:value="produccion.ID_Produccion">@{{ produccion.nombre }} - @{{produccion.jornada}}</option>
                                 </select>
                             </div>
                         </div>

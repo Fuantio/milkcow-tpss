@@ -15,7 +15,7 @@
                         </div>
                     @endif
 
-                    @foreach($novedadAn as $novedad)
+                    @foreach($novedadA as $novedad)
                     <form method="POST" action="{{ url('/')}}/novedades/{{$novedad['id_novedades']}}">
 
                          @method('PUT')

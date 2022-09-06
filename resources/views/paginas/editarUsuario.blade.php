@@ -104,7 +104,7 @@
                                         <select name="type_user" id="type_user" class="form-control @error('type_user') is-invalid @enderror">
                                             <option value="Pasante" @if ($persona['type_user'] == 'Pasante'){{ 'selected' }}@endif>Pasante</option>
                                             <option value="Aprendiz" @if ($persona['type_user'] == 'Aprendiz'){{'selected' }}@endif>Aprendiz</option>
-                                            <option value="Instructor (a)" @if ($persona['type_user'] == 'Instructor'){{'selected' }}@endif>Instructor (a)</option>
+                                            <option value="Instructor" @if ($persona['type_user'] == 'Instructor'){{'selected' }}@endif>Instructor (a)</option>
                                         </select>    
                                     </div>
                                 </div>

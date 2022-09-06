@@ -14,7 +14,7 @@
 
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __(' Novedades De Producción') }}</div>
+                <div class="card-header">{{ __('Novedades De Producción') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -45,9 +45,13 @@
                                 <td>@{{ novedad.fecha }}</td>
 
                                 <td>
-                                    <a v-bind:href="'http://127.0.0.1:8000/novedadesProduccion/' + novedad.id_novedad_produccion">Editar</a>
+                                    <a class="btn btn-primary" v-bind:href="'http://127.0.0.1:8000/novedadesProduccion/' + novedad.id_novedad_produccion">
+                                    <i class="bi bi-pencil-square"></i>
+                                    </a>
                                     @if(Auth::user()->type_user == 'Instructor')
-                                    <a href="#" v-on:click="eliminarNovedadProduccion(novedad.id_novedad_produccion)">Eliminar</a>
+                                    <a class="btn btn-danger" v-on:click="eliminarNovedadProduccion(novedad.id_novedad_produccion)">
+                                    <i class="bi bi-trash3"></i>
+                                    </a>
                                 </td>
                             </tr>
 

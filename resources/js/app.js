@@ -157,6 +157,7 @@ const app = new Vue({
 
         paginarNovedadAnimal: function(pagina){
 
+            
             this.paginaActualNovedadAnimal = pagina;
 
             this.desdeNovedadAnimal = ((this.paginaActualNovedadAnimal - 1) * this.novedadesPagina);
@@ -212,26 +213,6 @@ const app = new Vue({
 
         },
 
-        calcular:function(){
-
-            if(this.operacion == 'suma'){
-
-                this.resultado = parseInt(this.num1) + parseInt(this.num2)
-            }
-            if(this.operacion == 'resta'){
-
-                this.resultado = parseInt(this.num1) - parseInt(this.num2)
-            }
-            if(this.operacion == 'multi'){
-
-                this.resultado = parseInt(this.num1) * parseInt(this.num2)
-            }
-            if(this.operacion == 'div'){
-
-                this.resultado = parseInt(this.num1) / parseInt(this.num2)
-            }
-        },
-
         eliminarNovedad: function(id_novedades){
 
             var eliminar = confirm("¿Esta seguro que quiere eliminar este dato de novedad?");
@@ -252,6 +233,7 @@ const app = new Vue({
 
         buscarNovedades:function(){
 
+            console.log("holaaaa")
             if(this.fechaNovedad.length > 0){
 
                 
@@ -679,12 +661,12 @@ const app = new Vue({
                     axios.get('http://127.0.0.1:8000/buscarAnimales/' + this.nombre_vaca).then((respuesta) => {
                     
                         this.arregloAnimales = respuesta.data;
-                        this.paginas = Math.ceil(this.arregloAnimales.length / this.animalesPaginas);
+                        this.paginasVaca = Math.ceil(this.arregloAnimales.length / this.animalesPaginas);
                     });
                 } else {
                     axios.get('http://127.0.0.1:8000/buscarAnimales/-').then((respuesta) => {
                         this.arregloAnimales = respuesta.data;
-                        this.paginas = Math.ceil(this.arregloAnimales.length / this.animalesPaginas);
+                        this.paginasVaca = Math.ceil(this.arregloAnimales.length / this.animalesPaginas);
     
                     });
                 }
@@ -693,7 +675,7 @@ const app = new Vue({
             consultarNumeroAnimales: function () {
                 axios.get(consultarCantidadAnimales).then((respuesta) => {
                     this.totalAnimales = respuesta.data
-                    this.paginas = Math.ceil(this.totalAnimales / this.animalesPaginas);
+                    this.paginasVaca = Math.ceil(this.totalAnimales / this.animalesPaginas);
                 })
             },
             paginar: function (pagina) {
@@ -759,7 +741,7 @@ const app = new Vue({
     
                         this.despachos = respuesta.data;
     
-                        this.paginas = Math.ceil(this.despachos.length / this.despachosPagina);
+                        this.paginasDespacho = Math.ceil(this.despachos.length / this.despachosPagina);
     
                     });
     
@@ -769,7 +751,7 @@ const app = new Vue({
     
                         this.despachos = respuesta.data;
     
-                        this.paginas = Math.ceil(this.despachos.length / this.despachosPagina);
+                        this.paginasDespacho = Math.ceil(this.despachos.length / this.despachosPagina);
     
                     });
                 }
@@ -782,7 +764,7 @@ const app = new Vue({
     
                         this.despachos = respuesta.data;
     
-                        this.paginas = Math.ceil(this.despachos.length / this.despachosPagina);
+                        this.paginasDespacho = Math.ceil(this.despachos.length / this.despachosPagina);
                     });
     
                 } else {
@@ -791,7 +773,7 @@ const app = new Vue({
     
                         this.despachos = respuesta.data;
     
-                        this.paginas = Math.ceil(this.despachos.length / this.despachosPagina);
+                        this.paginasDespacho = Math.ceil(this.despachos.length / this.despachosPagina);
     
                     });
                 }
@@ -802,7 +784,7 @@ const app = new Vue({
     
                     this.totalDespachos = respuesta.data
     
-                    this.paginas = Math.ceil(this.totalDespachos / this.despachosPagina);
+                    this.paginasDespacho = Math.ceil(this.totalDespachos / this.despachosPagina);
     
                 })
             },
@@ -874,7 +856,7 @@ const app = new Vue({
                 }
             },
     
-            buscarNovedades: function () {
+            buscarNovedadesProduccion: function () {
     
                 if (this.fecha_novedad_produccion.length > 0) {
     
@@ -883,7 +865,7 @@ const app = new Vue({
     
                         this.arregloNovedadesProduccion = respuesta.data;
     
-                        this.paginas = Math.ceil(this.arregloNovedadesProduccion.length / this.novedadesProduccionPagina);
+                        this.paginasNP = Math.ceil(this.arregloNovedadesProduccion.length / this.novedadesProduccionPagina);
     
                         return this.arregloNovedadesProduccion;
                     });
@@ -893,7 +875,7 @@ const app = new Vue({
     
                         this.arregloNovedadesProduccion = respuesta.data;
     
-                        this.paginas = Math.ceil(this.arregloNovedadesProduccion.length / this.novedadesProduccionPagina);
+                        this.paginasNP = Math.ceil(this.arregloNovedadesProduccion.length / this.novedadesProduccionPagina);
     
                         return this.arregloNovedadesProduccion;
                     });
@@ -932,7 +914,10 @@ const app = new Vue({
     
                 axios.get('http://127.0.0.1:8000/buscarNovedadesProduccion/-').then((respuesta) => {
     
-                    this.arregloNovedadesProduccion = respuesta.data
+                    
+                this.arregloNovedadesProduccion = respuesta.data
+                this.paginasNP = Math.ceil(this.arregloNovedadesProduccion.length / this.novedadesProduccionPagina);
+
     
                 })
                 return this.arregloNovedadesProduccion
@@ -1009,7 +994,6 @@ const app = new Vue({
         mounted(){
 
             //*************MOUNTED DE NOVEDADES ANIMAL -JHORMAN */ 
-            this.buscarNovedades()
             this.buscarNovedades()
             this.consultaNumeroNovedades()
             this.paginarNovedadAnimal(1)

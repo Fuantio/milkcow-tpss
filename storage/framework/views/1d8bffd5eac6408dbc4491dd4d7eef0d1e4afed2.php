@@ -17,7 +17,6 @@
                     <?php endif; ?>
 
                     <?php $__currentLoopData = $novedadA; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $novedad): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-
                     <form method="POST" action="<?php echo e(url('/')); ?>/novedades/<?php echo e($novedad['id_novedades']); ?>">
 
                          <?php echo method_field('PUT'); ?>

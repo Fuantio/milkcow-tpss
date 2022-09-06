@@ -31,7 +31,7 @@
                                 <th scope="col">CANTIDAD</th>
                                 <th scope="col">FECHA</th>
                                 <th scope="col">RESPONSABLE</th>
-                                <th scope="col">ACCIONES</th>
+                                <th colspan="2">ACCIONES</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,12 +46,12 @@
                                 <td>
                                     <div class="btn-group">
 
-                                        <a v-bind:href="'http://127.0.0.1:8000/despachos/'+ despacho.id_despacho">
-                                            Editar
-                                        </a>
+                                        <a class="btn btn-primary" v-bind:href="'http://127.0.0.1:8000/despachos/'+ despacho.id_despacho">
+                                        <i class="bi bi-pencil-square"></i>
+                                        </a> 
                                         @if ( Auth::user()->type_user == 'Instructor')
-                                        <a href="#" v-on:click="eliminarDespachos(despacho.id_despacho)">
-                                            Eliminar
+                                        <a class="btn btn-danger" v-on:click="eliminarDespachos(despacho.id_despacho)">
+                                        <i class="bi bi-trash3"></i>
                                         </a>
                                         @endif
                                     </div>

@@ -120,7 +120,7 @@ class NovedadProduccionController extends Controller
 
             $producciones = ProduccionModel::where('producción.fecha', '=', $fecha)
                 ->join('vaca', 'producción.vaca', '=', 'vaca.Id_animal')
-                ->join('users', 'producción.id_responsable', '=', 'users.id')
+                ->join('users', 'producción.responsable', '=', 'users.id')
                 ->get();
 
             return $producciones;

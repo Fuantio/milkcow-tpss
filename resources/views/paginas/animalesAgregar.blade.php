@@ -99,7 +99,7 @@
                                 <select name="id_rebano" id="id_rebano" class="form-control @error('id_rebano') is-invalid @enderror">
                                     @foreach ($rebanos as $rebano)
 
-
+                                        {{$rebano}}
                                     <option value="{{ $rebano['id_rebano']}}">{{$rebano['num_lote']}}</option>
 
                                     @endforeach

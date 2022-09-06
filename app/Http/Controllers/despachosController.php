@@ -92,7 +92,8 @@ class despachosController extends Controller
                 "id_destino" => $request->input("id_destino"),
                 "cantidad" => $request->input("cantidad"),
                 "fecha" => $request->input("fecha"),
-                "id_responsable" => $request->input("id_responsable")
+                "id_responsable" => $request->input("id_responsable"),
+                "id_leche" => $inventarioLeche["id_leche"]
             );
             if (!empty($datos)) {
     

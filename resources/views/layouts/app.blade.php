@@ -60,10 +60,10 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black;">
-                                <b>Destinos</b>
+                                <b>Despachos</b>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="/despachos">Listado de destinos</a>
+                                <a class="dropdown-item" href="/despachos">Listado de despachos</a>
                                 <a class="dropdown-item" href="/despachoAgregar">Agregar envio</a>
                             </div>
                         </li>

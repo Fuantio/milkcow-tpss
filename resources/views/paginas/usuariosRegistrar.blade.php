@@ -1,5 +1,4 @@
-@auth
-@if (Auth::user()->type_user == 'Instructor')
+
 @extends('layouts.app')
 
 @section('content')
@@ -134,5 +133,3 @@
     </div>
 </div>
 @endsection
-@endif
-@endauth

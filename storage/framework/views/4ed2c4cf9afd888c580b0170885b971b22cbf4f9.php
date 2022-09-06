@@ -43,8 +43,8 @@
                                 <b>Animales</b>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">Lista de animales</a>
-                                <a class="dropdown-item" href="#">Agregar animal</a>
+                                <a class="dropdown-item" href="/animales">Lista de animales</a>
+                                <a class="dropdown-item" href="/animalesAgregar">Agregar animal</a>
                             </div>
                         </li>
 
@@ -60,11 +60,11 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black;">
-                                <b>Destinos</b>
+                                <b>Despachos</b>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">Listado de destinos</a>
-                                <a class="dropdown-item" href="#">Agregar envio</a>
+                                <a class="dropdown-item" href="/despachos">Listado de despachos</a>
+                                <a class="dropdown-item" href="/despachoAgregar">Agregar envio</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -77,8 +77,8 @@
                                 <a class="dropdown-item" href="/agregarNovedadAnimal">Agregar novedad a.</a>
                                 <a class="dropdown-item" href=""></a>
                                 <a class="dropdown-item" href=""><b>Novedades producción</b></a>
-                                <a class="dropdown-item" href="">Lista de novedades p.</a>
-                                <a class="dropdown-item" href="">Agregar novedad p.</a>
+                                <a class="dropdown-item" href="/novedadesProduccion">Lista de novedades p.</a>
+                                <a class="dropdown-item" href="/novedadProduccionAgregar">Agregar novedad p.</a>
                             </div>
                         </li>
                         <?php if( Auth::user()->type_user == 'Instructor'): ?>
