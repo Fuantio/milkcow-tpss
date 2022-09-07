@@ -21,12 +21,11 @@
                     </div>
                     @endif
 
-                    ANIMAL
 
                                      
-                    <table class="table table-success table-striped">
+                    <table class="table table-striped">
 
-                        <thead>
+                    <thead class="thead-dark">
                             <tr>
                                 <th>PLACA</th>
                                 <th>NOMBRE VACA</th>

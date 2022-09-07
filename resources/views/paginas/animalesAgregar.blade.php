@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Registrar') }}</div>
+                <div class="card-header">{{ __('Registrar Animales') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{url('/')}}/animales/">

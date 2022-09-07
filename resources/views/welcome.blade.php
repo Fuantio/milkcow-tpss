@@ -85,8 +85,6 @@
                 <div class="title m-b-md">
                     MILKCOW-TPS
                 <div class="links">
-                    <a href="/novedades">Novedades</a>
-                    <a href="/produccion">Produccion</a>
                 </div>
             </div>
         </div>
