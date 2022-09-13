@@ -1,3 +1,4 @@
+@auth
 @extends('layouts.app')
 
 @section('content')
@@ -41,7 +42,7 @@
 
 
                         <div class="form-group row">
-                            <label for="fecha_de_nacimiento" class="col-md-4 col-form-label text-md-right">{{ __('Fecha_de_nacimiento') }}</label>
+                            <label for="fecha_de_nacimiento" class="col-md-4 col-form-label text-md-right">{{ __('Fecha de nacimiento') }}</label>
 
                             <div class="col-md-6">
                                 <input id="fecha_de_nacimiento" type="date" class="form-control @error('fecha_de_nacmiento') is-invalid @enderror" name="fecha_de_nacimiento" value="" required autocomplete="fecha_de_nacimiento">
@@ -56,27 +57,11 @@
 
 
                         <div class="form-group row">
-                            <label for="estado" class="col-md-4 col-form-label text-md-right">{{ __('Estado')}}</label>
-                            <div class="col-md-6">
-                                <select name="estado" id="estado" class="form-control @error('estado') is-invalid @enderror">
-                                    <option value="MUERTA">MUERTA</option>
-                                    <option value="VIVA">VIVA</option>
-                                    <option value="VENDIDA">VENDIDA</option>
-                                </select>
-                                @error('estado')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-
-                        <div class="form-group row">
                             <label for="id_raza" class="col-md-4 col-form-label text-md-right">{{ __('Raza')}}</label>
                             <div class="col-md-6">
 
                                 <select name="id_raza" id="id_raza" class="form-control @error('id_raza') is-invalid @enderror">
+                                    <option value="">SELECCIONE UNO...</option>
                                     @foreach ($razas as $raza)
 
                                     <option value="{{ $raza['id_raza']}}">{{$raza['nom_raza']}}</option>
@@ -97,6 +82,7 @@
                             <div class="col-md-6">
 
                                 <select name="id_rebano" id="id_rebano" class="form-control @error('id_rebano') is-invalid @enderror">
+                                  <option value="">SELECCIONE UNO...</option>
                                     @foreach ($rebanos as $rebano)
 
                                         {{$rebano}}
@@ -112,6 +98,21 @@
                                 @enderror
                             </div>
                         </div>
+                        
+
+                        <div class="form-group row" style="visibility:hidden">
+                            <label for="estado" class="col-md-4 col-form-label text-md-right">{{ __('Estado')}}</label>
+                            <div class="col-md-6">
+                                <select name="estado" id="estado" class="form-control @error('estado') is-invalid @enderror">
+                                    <option value="VIVA">VIVA</option>
+                                </select>
+                                @error('estado')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div> 
 
 
 
@@ -130,3 +131,4 @@
     </div>
 </div>
 @endsection
+@endauth

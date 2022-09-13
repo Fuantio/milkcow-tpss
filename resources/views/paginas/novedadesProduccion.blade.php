@@ -52,6 +52,7 @@
                                     <a class="btn btn-danger" v-on:click="eliminarNovedadProduccion(novedad.id_novedad_produccion)">
                                     <i class="bi bi-trash3"></i>
                                     </a>
+                                    @endif
                                 </td>
                             </tr>
 
@@ -102,4 +103,3 @@
     </div>
 </div>
 @endsection
-@endif

@@ -42,7 +42,7 @@ class AnimalController extends Controller
          "fecha_de_nacimiento" => $request->input("fecha_de_nacimiento"),
          "estado" => $request->input("estado"),
          "id_raza" => $request->input("raza"),
-         "id_rebano"=> $request->input("num_lote")
+         "id_rebano"=> $request->input("id_rebano")
 
       );
       
