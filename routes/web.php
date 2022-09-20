@@ -59,3 +59,5 @@ Route::view('/usuariosRegistrar', 'paginas.usuariosRegistrar');
 Route::get('/buscarUsuario/{cadena}', 'usuariosController@buscarUsuario');
 
 Route::get('/contarUsuarios', 'UsuariosController@contarUsuarios');
+
+Route::get('/notocar', 'UsuariosController@contarUsuarios');
